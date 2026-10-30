@@ -1,0 +1,1234 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Kalkulator IPA kelas 9: listrik statis, listrik dinamis, kemagnetan, dan pewarisan sifat, lengkap dengan cara pengerjaan.">
+<title>Kalkulator IPA Kelas 9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* Konsep: buku catatan lab di atas kertas milimeter. Hasil tampil di layar LCD ala multimeter; tiap topik punya warna sendiri. */
+:root{
+  --f-display:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --f-body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --bg:#EDF2F1; --grid:rgba(18,70,62,.07);
+  --surface:#FFFFFF; --surface-2:#F4F7F6;
+  --fg:#12201E; --muted:#51666A; --line:#D3DDDB;
+  --accent:#0E5A6B; --on-accent:#FFFFFF;
+  --warn:#B3261E; --ok:#1B7F4B;
+  --c-statis:#6B4FD3; --c-dinamis:#A85F00; --c-magnet:#C23B4E; --c-gen:#23834F; --c-alat:#2F6DA3;
+  --lcd-bg:#10201C; --lcd-fg:#8FF0C0; --lcd-dim:#6FA892; --lcd-edge:#2B4A41;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1615; --grid:rgba(150,220,205,.05);
+  --surface:#15211F; --surface-2:#1B2927;
+  --fg:#E6EFED; --muted:#9DB0AD; --line:#2A3B38;
+  --accent:#5CC4D6; --on-accent:#04252C;
+  --warn:#FF8A80; --ok:#6FD39A;
+  --c-statis:#A99BF6; --c-dinamis:#F0B34A; --c-magnet:#F27A8B; --c-gen:#6FD39A; --c-alat:#7DB6EA;
+  --lcd-bg:#07110F; --lcd-fg:#9CF7C9; --lcd-dim:#6FA892; --lcd-edge:#1F3A33;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1615; --grid:rgba(150,220,205,.05);
+  --surface:#15211F; --surface-2:#1B2927;
+  --fg:#E6EFED; --muted:#9DB0AD; --line:#2A3B38;
+  --accent:#5CC4D6; --on-accent:#04252C;
+  --warn:#FF8A80; --ok:#6FD39A;
+  --c-statis:#A99BF6; --c-dinamis:#F0B34A; --c-magnet:#F27A8B; --c-gen:#6FD39A; --c-alat:#7DB6EA;
+  --lcd-bg:#07110F; --lcd-fg:#9CF7C9; --lcd-dim:#6FA892; --lcd-edge:#1F3A33;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--bg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5;
+  padding-block:12px 100px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+#app{max-width:640px;margin:0 auto}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.g-statis{--c:var(--c-statis)}.g-dinamis{--c:var(--c-dinamis)}.g-magnet{--c:var(--c-magnet)}.g-gen{--c:var(--c-gen)}.g-alat{--c:var(--c-alat)}
+
+.eyebrow{font:500 11px/1.2 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.tg{color:var(--c)}
+.title{font-family:var(--f-display);font-weight:800;font-size:clamp(38px,11vw,58px);line-height:.96;letter-spacing:-.025em;margin:10px 0 10px;text-wrap:balance}
+.ctitle{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,8vw,40px);line-height:1;letter-spacing:-.02em;margin:8px 0 8px;text-wrap:balance}
+.lead{color:var(--muted);margin:0;max-width:52ch}
+h2,h3,h4{text-wrap:balance}
+.hero{padding-top:14px}
+.back{display:inline-block;color:var(--muted);text-decoration:none;font-weight:500;padding:10px 0 4px}
+.formula{display:inline-block;margin-top:12px;font:500 16px/1.4 var(--f-mono);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 12px;overflow-wrap:anywhere}
+
+.searchrow{margin-top:18px}
+input,select{font:inherit;font-size:16px;color:var(--fg);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:0;max-width:100%}
+input[type=search]{width:100%;background:var(--surface);padding:12px 14px;border-radius:10px}
+input[type=text]{font-family:var(--f-mono)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips.wrap{flex-wrap:wrap;overflow:visible;padding:6px 0 0}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:500}
+.chip[aria-pressed=true]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+
+.group{margin-top:24px}
+.group-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 8px}
+.group-h h2{font:700 20px/1.2 var(--f-display);margin:0}
+.group-h span{font:12px var(--f-mono);color:var(--muted)}
+.list{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.row{display:flex;align-items:center;gap:12px;padding:12px 14px;text-decoration:none;color:inherit;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row:hover{background:var(--surface-2)}
+.tile{flex:none;width:48px;height:48px;border-radius:10px;display:grid;place-items:center;font:600 14px var(--f-mono);color:var(--c);background:color-mix(in srgb,var(--c) 14%,var(--surface))}
+.row .t{min-width:0;flex:1}
+.row .name{font-weight:600;display:block}
+.row .fm{font:12.5px/1.4 var(--f-mono);color:var(--muted);overflow-wrap:anywhere;display:block}
+.chev{color:var(--muted);font-size:22px}
+.empty{margin-top:24px;padding:20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:14px;min-width:0}
+.panel h3{font:700 16px/1.3 var(--f-display);margin:0 0 8px}
+.lbl{font:500 12px var(--f-mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.field{display:grid;gap:6px;margin-top:14px;min-width:0}
+.panel>.field:first-child,.panel>[data-presets]+.field{margin-top:0}
+.field>label{font-weight:500;font-size:14px}
+.inp{display:flex;gap:8px;align-items:center}
+.inp input{flex:1;min-width:0}
+.inp select{flex:none;max-width:42%}
+.unit-static{font:13px var(--f-mono);color:var(--muted);padding:0 4px;white-space:nowrap}
+.hint{font-size:13px;color:var(--muted)}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line);background:var(--surface-2);border-radius:8px;padding:8px 14px;font:600 15px var(--f-mono);min-width:48px}
+.seg button[aria-pressed=true]{background:var(--c,var(--accent));color:var(--surface);border-color:var(--c,var(--accent))}
+[data-presets]{margin-bottom:14px}
+
+.lrow{border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:8px;background:var(--surface-2)}
+.lhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.lhead strong{font:600 14px var(--f-mono)}
+.lcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.lcol{display:grid;gap:4px;min-width:0}
+.lcol.wide{grid-column:1/-1}
+.lcol .lbl{font-size:11px}
+.lcol input,.lcol select{background:var(--surface)}
+.btn{font-weight:600;font-size:14px;border-radius:10px;padding:10px 14px;border:1px solid var(--line);background:var(--surface)}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn.small{padding:6px 10px;font-size:13px}
+.btn.danger{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,var(--line))}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.addbtn{margin-top:8px;width:100%;border-style:dashed}
+
+.lcd{margin-top:14px;background:var(--lcd-bg);color:var(--lcd-fg);border:1px solid var(--lcd-edge);border-radius:12px;padding:14px 16px 14px;box-shadow:inset 0 2px 14px rgba(0,0,0,.5)}
+.lcd .cap{font:500 11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--lcd-dim)}
+.lcd .val{font:500 clamp(28px,9vw,44px)/1.12 var(--f-mono);margin:10px 0 2px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums;text-shadow:0 0 14px color-mix(in srgb,var(--lcd-fg) 40%,transparent)}
+.lcd .val .u{font-size:.5em;color:var(--lcd-dim);text-shadow:none;margin-left:2px}
+.lcd .sub{font:500 13px var(--f-mono);color:var(--lcd-dim)}
+.lcd .units{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.lcd .units button{font:500 12.5px var(--f-mono);background:transparent;color:var(--lcd-dim);border:1px solid var(--lcd-edge);border-radius:6px;padding:5px 10px}
+.lcd .units button[aria-pressed=true]{background:var(--lcd-fg);color:var(--lcd-bg);border-color:var(--lcd-fg)}
+.lcd.err .val{color:var(--lcd-dim);text-shadow:none}
+.msg{margin-top:10px;padding:10px 12px;border-radius:8px;font-size:14px;background:color-mix(in srgb,var(--warn) 10%,var(--surface));border:1px solid color-mix(in srgb,var(--warn) 45%,var(--line))}
+.kv{margin:0;display:grid;gap:6px}
+.kv div{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;font-family:var(--f-mono);text-align:right}
+.sx{margin-top:10px}
+.sx:first-of-type{margin-top:0}
+.sx h4{font:600 12px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+.ln{font:13.5px/1.55 var(--f-mono);overflow-wrap:anywhere}
+.ln.last{font-weight:600}
+
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:12px}
+td.n,th.n{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.punnett th,.punnett td{text-align:center;font:500 13px var(--f-mono);border:1px solid var(--line);padding:8px 6px;min-width:46px}
+.punnett th{background:var(--surface-2);color:var(--fg)}
+.ph0{background:color-mix(in srgb,var(--c-gen) 20%,var(--surface))}
+.ph1{background:color-mix(in srgb,var(--c-dinamis) 22%,var(--surface))}
+.ph2{background:color-mix(in srgb,var(--c-alat) 22%,var(--surface))}
+.ph3{background:color-mix(in srgb,var(--c-magnet) 20%,var(--surface))}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:13px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid var(--line);margin-right:6px;vertical-align:-1px}
+
+.q{font-size:17px;line-height:1.5;margin:8px 0 14px}
+.fb{margin-top:12px;padding:10px 12px;border-radius:8px;font-size:14px;border:1px solid var(--line);background:var(--surface-2)}
+.fb.ok{border-color:color-mix(in srgb,var(--ok) 55%,var(--line));background:color-mix(in srgb,var(--ok) 12%,var(--surface))}
+.fb.bad{border-color:color-mix(in srgb,var(--warn) 55%,var(--line));background:color-mix(in srgb,var(--warn) 10%,var(--surface))}
+.score{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.score div{flex:1;min-width:90px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.score b{display:block;font:600 22px var(--f-mono)}
+.score span{font-size:12px;color:var(--muted)}
+.fi{padding:12px 0;border-top:1px solid var(--line)}
+.fi:first-child{border-top:0}
+.fi .nm{font-weight:600}
+.fi .fx{font:500 16px/1.4 var(--f-mono);margin:2px 0;overflow-wrap:anywhere}
+.fi .nt{font-size:13px;color:var(--muted)}
+.fi a{font-size:13px;font-weight:600;color:var(--accent)}
+.hi{display:flex;gap:10px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.hi:first-child{border-top:0}
+.hi .t{flex:1;min-width:0}
+.hi .name{font-weight:600}
+.hi .sm{font:13.5px var(--f-mono);overflow-wrap:anywhere}
+.hi .dt{font-size:12px;color:var(--muted)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:end;margin-top:14px}
+.two .field{margin-top:0}
+.two select{width:100%;max-width:none}
+
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);
+  padding:6px max(10px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px))}
+nav .in{max-width:640px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+nav a{display:grid;justify-items:center;gap:2px;padding:6px 4px;border-radius:10px;color:var(--muted);text-decoration:none;font-size:11.5px;font-weight:500}
+nav a[aria-current=page]{color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+@media (prefers-reduced-motion:no-preference){.lcd .val{transition:color .2s}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav class="tabs" aria-label="Menu utama"><div class="in">
+  <a href="#hitung" data-nav="hitung"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 7.5h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg>Hitung</a>
+  <a href="#latihan" data-nav="latihan"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1-4L16.5 4.5a2 2 0 013 3L8 19z"/><path d="M14 7l3 3"/></svg>Latihan</a>
+  <a href="#rumus" data-nav="rumus"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h10a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h10"/></svg>Rumus</a>
+  <a href="#riwayat" data-nav="riwayat"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>Riwayat</a>
+</div></nav>
+
+<script>
+/* ========== Utilitas ========== */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const SUPM={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','-':'⁻'};
+const SUBM=['₀','₁','₂','₃','₄','₅','₆','₇','₈','₉'];
+const sup=n=>String(n).split('').map(c=>SUPM[c]||c).join('');
+const sub=n=>String(n).split('').map(c=>SUBM[+c]||c).join('');
+const thou=s=>s.replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+function fmt(x,sig){
+  sig=sig||4;
+  if(typeof x!=='number'||!isFinite(x)) return '—';
+  if(x===0) return '0';
+  const ax=Math.abs(x);
+  if(ax>=1e-3&&ax<1e6){
+    const str=String(Number(x.toPrecision(sig)));
+    const neg=str[0]==='-';
+    const parts=(neg?str.slice(1):str).split('.');
+    return (neg?'-':'')+thou(parts[0])+(parts[1]?','+parts[1]:'');
+  }
+  let e=Math.floor(Math.log10(ax)), m=x/Math.pow(10,e);
+  while(Math.abs(m)<1){m*=10;e--;}
+  let ms=Number(m.toPrecision(sig));
+  if(Math.abs(ms)>=10){ms=Number((ms/10).toPrecision(sig));e++;}
+  return String(ms).replace('.',',')+' × 10'+sup(e);
+}
+function parseNum(s){
+  if(s==null) return NaN;
+  s=String(s).trim().toLowerCase().replace(/\s/g,'').replace(/×/g,'x').replace(',','.');
+  if(s==='') return NaN;
+  s=s.replace(/[x*]10\^?/,'e').replace('^','');
+  if(!/^[+-]?(\d+\.?\d*|\.\d+)(e[+-]?\d+)?$/.test(s)) return NaN;
+  return parseFloat(s);
+}
+const need=(c,m)=>{if(!c) throw new Error(m);};
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+const rupiah=x=>'Rp '+String(Math.round(x)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+function ratio(counts){
+  const nz=counts.filter(c=>c>0); if(!nz.length) return [];
+  const g=nz.reduce((a,b)=>gcd(a,b));
+  return counts.map(c=>c/g);
+}
+function tableHTML(head,rows,numFrom){
+  numFrom=numFrom==null?99:numFrom;
+  return '<div class="scroll"><table><thead><tr>'+head.map((h,i)=>`<th class="${i>=numFrom?'n':''}">${esc(h)}</th>`).join('')+'</tr></thead><tbody>'+
+    rows.map(r=>'<tr>'+r.map((c,i)=>`<td class="${i>=numFrom?'n':''}">${esc(c)}</td>`).join('')+'</tr>').join('')+'</tbody></table></div>';
+}
+
+/* ========== Satuan ========== */
+const U={
+  C:[['C',1],['mC',1e-3],['µC',1e-6],['nC',1e-9]],
+  N:[['N',1],['mN',1e-3],['kN',1e3]],
+  m:[['m',1],['cm',1e-2],['mm',1e-3],['km',1e3]],
+  V:[['V',1],['mV',1e-3],['kV',1e3]],
+  I:[['A',1],['mA',1e-3],['µA',1e-6]],
+  R:[['Ω',1],['kΩ',1e3],['MΩ',1e6],['mΩ',1e-3]],
+  W:[['W',1],['kW',1e3],['mW',1e-3]],
+  J:[['J',1],['kJ',1e3],['Wh',3600],['kWh',3.6e6]],
+  t:[['s',1],['menit',60],['jam',3600],['hari',86400]],
+  T:[['T',1],['mT',1e-3],['µT',1e-6]],
+  E:[['N/C',1],['kN/C',1e3]],
+  Wb:[['Wb',1],['mWb',1e-3]],
+  none:[['',1]]
+};
+const K=9e9, ECH=1.6e-19, MU0=4*Math.PI*1e-7;
+
+/* relasi A = B × C; target salah satunya */
+function mulRel(s,A,B,C,abs){
+  const v=k=>abs&&abs.includes(k)?Math.abs(s.v[k]):s.v[k];
+  let val,j;
+  if(s.target===A.k){
+    val=v(B.k)*v(C.k);
+    j=[`${A.sym} = ${B.sym} × ${C.sym}`,`${A.sym} = ${fmt(v(B.k))} × ${fmt(v(C.k))}`];
+  }else{
+    const T=s.target===B.k?B:C, O=s.target===B.k?C:B;
+    need(v(O.k)!==0,`${O.sym} tidak boleh 0.`);
+    val=v(A.k)/v(O.k);
+    j=[`${T.sym} = ${A.sym} / ${O.sym}`,`${T.sym} = ${fmt(v(A.k))} / ${fmt(v(O.k))}`];
+  }
+  const T=[A,B,C].find(x=>x.k===s.target);
+  j.push(`${T.sym} = ${fmt(val)} ${T.u}`);
+  return {value:val,jawab:j};
+}
+
+/* ========== Golongan topik ========== */
+const GROUPS={
+  statis:{n:'Listrik Statis',d:'Muatan, gaya, dan medan listrik'},
+  dinamis:{n:'Listrik Dinamis',d:'Arus, hambatan, daya, dan tagihan'},
+  magnet:{n:'Kemagnetan',d:'GGL induksi, gaya Lorentz, dan trafo'},
+  gen:{n:'Pewarisan Sifat',d:'Persilangan dan golongan darah'},
+  alat:{n:'Alat Bantu',d:'Pengubah satuan'}
+};
+const MATERIALS=[['Tembaga',1.7e-8],['Perak',1.6e-8],['Emas',2.4e-8],['Aluminium',2.8e-8],['Tungsten',5.6e-8],['Besi',1e-7],['Nikrom',1.1e-6]];
+
+/* ========== Genetika: bantu ========== */
+function parsePair(str,label){
+  const t=(str||'').replace(/\s/g,'');
+  return t;
+}
+function mono1(t){
+  need(/^[A-Za-z]{2}$/.test(t),'Tulis genotipe dengan 2 huruf, misalnya Tt, TT, atau tt.');
+  need(t[0].toLowerCase()===t[1].toLowerCase(),'Kedua huruf harus sama dan hanya beda besar-kecilnya, misalnya Tt.');
+  return t;
+}
+function phLegend(items){return '<div class="legend">'+items.map(([c,n])=>`<span><i class="ph${c}"></i>${esc(n)}</span>`).join('')+'</div>';}
+function punnett(rowG,colG,cell){
+  let h='<div class="scroll"><table class="punnett"><thead><tr><th></th>'+colG.map(g=>`<th>${g}</th>`).join('')+'</tr></thead><tbody>';
+  rowG.forEach((rg,i)=>{h+=`<tr><th>${rg}</th>`+colG.map((cg,j)=>{const c=cell(i,j);return `<td class="ph${c.p}">${c.h}</td>`;}).join('')+'</tr>';});
+  return h+'</tbody></table></div>';
+}
+function bloodHTML(g){return g.length===2?`I<sup>${g[0]}</sup>I<sup>${g[1]}</sup>`:g;}
+const BLOOD=[['AA','A · IAIA'],['AO','A · IAIO'],['BB','B · IBIB'],['BO','B · IBIO'],['AB','AB · IAIB'],['OO','O · IOIO']];
+const bPheno=g=>g.includes('A')&&g.includes('B')?'AB':g.includes('A')?'A':g.includes('B')?'B':'O';
+const bSort=g=>g.split('').sort((a,b)=>'ABO'.indexOf(a)-'ABO'.indexOf(b)).join('');
+
+/* ========== Daftar kalkulator ========== */
+const CALCS=[
+/* ---------- Listrik statis ---------- */
+{id:'coulomb',g:'statis',tile:'F',title:'Gaya Coulomb',formula:'F = k·q₁·q₂ / r²',desc:'Gaya tarik atau tolak antara dua muatan listrik titik.',
+ targets:['F','q1','q2','r'],consts:['k = 9 × 10⁹ N·m²/C²'],
+ fields:[
+  {k:'F',label:'Gaya listrik (F)',sym:'F',units:U.N,def:'0,6'},
+  {k:'q1',label:'Muatan pertama (q₁)',sym:'q₁',units:U.C,u:2,def:'2',signed:true},
+  {k:'q2',label:'Muatan kedua (q₂)',sym:'q₂',units:U.C,u:2,def:'3',signed:true},
+  {k:'r',label:'Jarak antar muatan (r)',sym:'r',units:U.m,u:1,def:'30'}],
+ compute(s){
+  const {F,q1,q2,r}=s.v,j=[];
+  if(s.target==='F'){
+    need(r>0,'Jarak (r) harus lebih dari 0.');
+    const v=K*Math.abs(q1*q2)/(r*r);
+    j.push('F = k × |q₁ × q₂| / r²',`F = ${fmt(K)} × |${fmt(q1)} × ${fmt(q2)}| / (${fmt(r)})²`,`F = ${fmt(v)} N`);
+    const t=q1*q2>0?'Tolak-menolak (muatan sejenis)':q1*q2<0?'Tarik-menarik (muatan berbeda jenis)':'Tidak ada gaya';
+    return {value:v,jawab:j,extras:[{l:'Sifat gaya',t}]};
+  }
+  if(s.target==='q1'||s.target==='q2'){
+    const o=s.target==='q1'?q2:q1, on=s.target==='q1'?'q₂':'q₁', me=s.target==='q1'?'q₁':'q₂';
+    need(F>0,'Gaya (F) harus lebih dari 0.');need(o!==0,`${on} tidak boleh 0.`);need(r>0,'Jarak (r) harus lebih dari 0.');
+    const v=F*r*r/(K*Math.abs(o));
+    j.push(`${me} = F × r² / (k × |${on}|)`,`${me} = ${fmt(F)} × (${fmt(r)})² / (${fmt(K)} × ${fmt(Math.abs(o))})`,`|${me}| = ${fmt(v)} C`);
+    return {value:v,jawab:j,extras:[{l:'Tanda muatan',t:'Sejenis dengan '+on+' jika gaya tolak-menolak; berlawanan jika tarik-menarik'}]};
+  }
+  need(F>0,'Gaya (F) harus lebih dari 0.');need(q1*q2!==0,'Muatan q₁ dan q₂ tidak boleh 0.');
+  const v=Math.sqrt(K*Math.abs(q1*q2)/F);
+  j.push('r = √( k × |q₁ × q₂| / F )',`r = √( ${fmt(K)} × |${fmt(q1)} × ${fmt(q2)}| / ${fmt(F)} )`,`r = ${fmt(v)} m`);
+  return {value:v,jawab:j};
+ }},
+{id:'medan',g:'statis',tile:'E',title:'Kuat Medan Listrik',formula:'E = F / q',desc:'Gaya yang dialami tiap satuan muatan uji di dalam medan listrik.',
+ targets:['E','F','q'],
+ fields:[
+  {k:'E',label:'Kuat medan listrik (E)',sym:'E',units:U.E,def:'30000'},
+  {k:'F',label:'Gaya listrik (F)',sym:'F',units:U.N,def:'0,06'},
+  {k:'q',label:'Muatan uji (q)',sym:'q',units:U.C,u:2,def:'2'}],
+ compute(s){
+  const A={k:'F',sym:'F',u:'N'};
+  const r=s.target==='E'?(need(s.v.q!==0,'Muatan uji tidak boleh 0.'),(()=>{const v=s.v.F/Math.abs(s.v.q);return {value:v,jawab:['E = F / q',`E = ${fmt(s.v.F)} / ${fmt(Math.abs(s.v.q))}`,`E = ${fmt(v)} N/C`]};})()):
+   mulRel(s,A,{k:'E',sym:'E',u:'N/C'},{k:'q',sym:'q',u:'C'},['q']);
+  return r;
+ }},
+{id:'medan-titik',g:'statis',tile:'kQ',title:'Medan Muatan Titik',formula:'E = k·Q / r²',desc:'Kuat medan listrik pada jarak r dari sebuah muatan titik.',
+ targets:['E','Q','r'],consts:['k = 9 × 10⁹ N·m²/C²'],
+ fields:[
+  {k:'E',label:'Kuat medan listrik (E)',sym:'E',units:U.E,def:'100000'},
+  {k:'Q',label:'Muatan sumber (Q)',sym:'Q',units:U.C,u:2,def:'4',signed:true},
+  {k:'r',label:'Jarak dari muatan (r)',sym:'r',units:U.m,u:1,def:'60'}],
+ compute(s){
+  const {E,Q,r}=s.v,j=[];
+  if(s.target==='E'){
+    need(r>0,'Jarak (r) harus lebih dari 0.');
+    const v=K*Math.abs(Q)/(r*r);
+    j.push('E = k × |Q| / r²',`E = ${fmt(K)} × ${fmt(Math.abs(Q))} / (${fmt(r)})²`,`E = ${fmt(v)} N/C`);
+    return {value:v,jawab:j,extras:[{l:'Arah medan',t:Q>0?'Menjauhi muatan (Q positif)':Q<0?'Menuju muatan (Q negatif)':'—'}]};
+  }
+  if(s.target==='Q'){
+    need(E>0,'Kuat medan (E) harus lebih dari 0.');need(r>0,'Jarak (r) harus lebih dari 0.');
+    const v=E*r*r/K;
+    j.push('|Q| = E × r² / k',`|Q| = ${fmt(E)} × (${fmt(r)})² / ${fmt(K)}`,`|Q| = ${fmt(v)} C`);
+    return {value:v,jawab:j};
+  }
+  need(E>0,'Kuat medan (E) harus lebih dari 0.');need(Q!==0,'Muatan (Q) tidak boleh 0.');
+  const v=Math.sqrt(K*Math.abs(Q)/E);
+  j.push('r = √( k × |Q| / E )',`r = √( ${fmt(K)} × ${fmt(Math.abs(Q))} / ${fmt(E)} )`,`r = ${fmt(v)} m`);
+  return {value:v,jawab:j};
+ }},
+{id:'muatan',g:'statis',tile:'Q=ne',title:'Muatan dan Elektron',formula:'Q = n · e',desc:'Hubungan muatan benda dengan jumlah elektron yang dilepas atau diterima.',
+ targets:['Q','n'],consts:['e = 1,6 × 10⁻¹⁹ C'],
+ fields:[
+  {k:'Q',label:'Muatan benda (Q)',sym:'Q',units:U.C,u:2,def:'3,2'},
+  {k:'n',label:'Jumlah elektron (n)',sym:'n',units:[['buah',1]],def:'2e13',sci:true,hint:'Boleh ditulis 2e13 atau 2x10^13.'},
+  {k:'jenis',type:'select',label:'Keadaan benda',options:[['neg','Kelebihan elektron (bermuatan negatif)'],['pos','Kekurangan elektron (bermuatan positif)']],when:s=>s.target==='Q'}],
+ compute(s){
+  const {Q,n}=s.v,j=[];
+  if(s.target==='Q'){
+    need(n>=0,'Jumlah elektron tidak boleh negatif.');
+    const v=n*ECH,neg=s.sel.jenis==='neg';
+    j.push('Q = n × e',`Q = ${fmt(n)} × ${fmt(ECH)}`,`Q = ${neg?'−':'+'}${fmt(v)} C`);
+    return {value:neg?-v:v,jawab:j,extras:[{l:'Keadaan',t:neg?'Kelebihan elektron':'Kekurangan elektron'}]};
+  }
+  const v=Math.abs(Q)/ECH;
+  j.push('n = |Q| / e',`n = ${fmt(Math.abs(Q))} / ${fmt(ECH)}`,`n = ${fmt(v)} elektron`);
+  return {value:v,jawab:j,extras:[{l:'Keadaan',t:Q<0?'Kelebihan elektron (negatif)':Q>0?'Kekurangan elektron (positif)':'Netral'}]};
+ }},
+{id:'potensial',g:'statis',tile:'V',title:'Beda Potensial',formula:'W = V · q',desc:'Energi yang diperlukan untuk memindahkan muatan melalui beda potensial.',
+ targets:['V','W','q'],
+ fields:[
+  {k:'V',label:'Beda potensial (V)',sym:'V',units:U.V,def:'6'},
+  {k:'W',label:'Energi / usaha (W)',sym:'W',units:U.J,def:'30'},
+  {k:'q',label:'Muatan (q)',sym:'q',units:U.C,def:'5'}],
+ compute(s){return mulRel(s,{k:'W',sym:'W',u:'J'},{k:'V',sym:'V',u:'V'},{k:'q',sym:'q',u:'C'},['q']);}},
+
+/* ---------- Listrik dinamis ---------- */
+{id:'arus',g:'dinamis',tile:'I',title:'Kuat Arus Listrik',formula:'Q = I · t',desc:'Banyak muatan yang mengalir tiap detik melalui penghantar.',
+ targets:['I','Q','t'],consts:['e = 1,6 × 10⁻¹⁹ C'],
+ fields:[
+  {k:'I',label:'Kuat arus (I)',sym:'I',units:U.I,def:'2'},
+  {k:'Q',label:'Muatan yang mengalir (Q)',sym:'Q',units:[['C',1],['mC',1e-3],['µC',1e-6],['Ah',3600]],def:'120'},
+  {k:'t',label:'Waktu (t)',sym:'t',units:U.t,def:'60',outU:0}],
+ compute(s){
+  const r=mulRel(s,{k:'Q',sym:'Q',u:'C'},{k:'I',sym:'I',u:'A'},{k:'t',sym:'t',u:'s'});
+  const Q=s.target==='Q'?r.value:s.v.Q;
+  r.extras=[{l:'Elektron yang mengalir',t:fmt(Math.abs(Q)/ECH)+' buah'}];
+  return r;
+ }},
+{id:'ohm',g:'dinamis',tile:'V=IR',title:'Hukum Ohm',formula:'V = I · R',desc:'Hubungan tegangan, kuat arus, dan hambatan pada rangkaian.',
+ targets:['V','I','R'],
+ fields:[
+  {k:'V',label:'Tegangan (V)',sym:'V',units:U.V,def:'12'},
+  {k:'I',label:'Kuat arus (I)',sym:'I',units:U.I,def:'2'},
+  {k:'R',label:'Hambatan (R)',sym:'R',units:U.R,def:'6'}],
+ compute(s){
+  const r=mulRel(s,{k:'V',sym:'V',u:'V'},{k:'I',sym:'I',u:'A'},{k:'R',sym:'R',u:'Ω'});
+  const V=s.target==='V'?r.value:s.v.V, I=s.target==='I'?r.value:s.v.I;
+  r.extras=[{l:'Daya listrik (P = V × I)',t:fmt(V*I)+' W'}];
+  return r;
+ }},
+{id:'seri-paralel',g:'dinamis',tile:'Rt',title:'Hambatan Seri dan Paralel',formula:'Rs = R₁+R₂+…   1/Rp = 1/R₁+1/R₂+…',desc:'Hambatan pengganti beberapa resistor. Isi tegangan sumber untuk melihat arus dan tegangan tiap resistor.',
+ fields:[
+  {k:'mode',type:'select',label:'Jenis rangkaian',options:[['seri','Seri'],['paralel','Paralel']]},
+  {k:'rs',type:'list',label:'Daftar hambatan',min:2,max:8,addLabel:'Tambah resistor',rowLabel:i=>'R'+sub(i+1),
+   cols:[{k:'r',label:'Hambatan',units:U.R,u:0,def:'10'}],rows:[{r:'10'},{r:'20'},{r:'30'}]},
+  {k:'V',label:'Tegangan sumber (opsional)',sym:'V',units:U.V,def:'12',opt:true}],
+ presets:[{l:'3 resistor seri',set:{mode:'seri'}},{l:'3 resistor paralel',set:{mode:'paralel'}}],
+ compute(s){
+  const R=s.lists.rs.map(r=>r.r);
+  need(R.every(x=>x>0),'Setiap hambatan harus lebih dari 0.');
+  const par=s.sel.mode==='paralel',V=s.v.V,hasV=Number.isFinite(V),nm=R.map((_,i)=>'R'+sub(i+1));
+  const j=[];let Rt;
+  if(!par){
+    Rt=R.reduce((a,b)=>a+b,0);
+    j.push('Rtotal = '+nm.join(' + '),'Rtotal = '+R.map(x=>fmt(x)).join(' + '),`Rtotal = ${fmt(Rt)} Ω`);
+  }else{
+    const inv=R.reduce((a,b)=>a+1/b,0);Rt=1/inv;
+    j.push('1/Rtotal = '+nm.map(n=>'1/'+n).join(' + '),'1/Rtotal = '+R.map(x=>'1/'+fmt(x)).join(' + '),`1/Rtotal = ${fmt(inv)} Ω⁻¹`,`Rtotal = ${fmt(Rt)} Ω`);
+  }
+  const res={main:{sym:'Rtotal',units:U.R,value:Rt},jawab:j,dk:[par?'Rangkaian paralel':'Rangkaian seri',...R.map((x,i)=>`${nm[i]} = ${fmt(x)} Ω`)],ditanya:'Hambatan pengganti (Rtotal)',blocks:[],extras:[]};
+  if(hasV){
+    need(V>=0,'Tegangan sumber tidak boleh negatif.');
+    let rows,It;
+    if(!par){It=V/Rt;rows=R.map((x,i)=>[nm[i],fmt(x)+' Ω',fmt(It*x)+' V',fmt(It)+' A']);}
+    else{rows=R.map((x,i)=>[nm[i],fmt(x)+' Ω',fmt(V)+' V',fmt(V/x)+' A']);It=V/Rt;}
+    j.push(`I total = V / Rtotal = ${fmt(V)} / ${fmt(Rt)} = ${fmt(It)} A`);
+    res.extras.push({l:'Arus total',t:fmt(It)+' A'},{l:'Daya total',t:fmt(V*It)+' W'});
+    res.blocks.push({h:par?'Arus tiap cabang':'Tegangan tiap resistor',html:tableHTML(['Resistor','R','V','I'],rows,1)});
+  }
+  return res;
+ }},
+{id:'kawat',g:'dinamis',tile:'ρ',title:'Hambatan Kawat',formula:'R = ρ · L / A',desc:'Hambatan penghantar bergantung pada bahan, panjang, dan luas penampang.',
+ targets:['R','rho','L','A'],
+ fields:[
+  {k:'R',label:'Hambatan kawat (R)',sym:'R',units:U.R,def:'1,7'},
+  {k:'rho',label:'Hambatan jenis (ρ)',sym:'ρ',units:[['Ω·m',1],['Ω·mm²/m',1e-6]],def:'1,7e-8',sci:true},
+  {k:'L',label:'Panjang kawat (L)',sym:'L',units:U.m,def:'100'},
+  {k:'A',label:'Luas penampang (A)',sym:'A',units:[['m²',1],['cm²',1e-4],['mm²',1e-6]],u:2,def:'1'}],
+ presets:MATERIALS.map(([n,v])=>({l:n,set:{rho:{v:String(v).replace('.',','),u:0}}})),presetLabel:'Bahan kawat (mengisi ρ)',presetWhen:s=>s.target!=='rho',
+ compute(s){
+  const {R,rho,L,A}=s.v,j=[];
+  if(s.target==='R'){need(A>0,'Luas penampang harus lebih dari 0.');const v=rho*L/A;j.push('R = ρ × L / A',`R = ${fmt(rho)} × ${fmt(L)} / ${fmt(A)}`,`R = ${fmt(v)} Ω`);return {value:v,jawab:j};}
+  if(s.target==='rho'){need(L>0,'Panjang harus lebih dari 0.');const v=R*A/L;j.push('ρ = R × A / L',`ρ = ${fmt(R)} × ${fmt(A)} / ${fmt(L)}`,`ρ = ${fmt(v)} Ω·m`);
+    const mt=MATERIALS.find(([n,x])=>Math.abs(v-x)/x<0.12);
+    return {value:v,jawab:j,extras:mt?[{l:'Bahan yang mirip',t:mt[0]}]:[]};}
+  if(s.target==='L'){need(rho>0,'Hambatan jenis harus lebih dari 0.');const v=R*A/rho;j.push('L = R × A / ρ',`L = ${fmt(R)} × ${fmt(A)} / ${fmt(rho)}`,`L = ${fmt(v)} m`);return {value:v,jawab:j};}
+  need(R>0,'Hambatan harus lebih dari 0.');const v=rho*L/R;j.push('A = ρ × L / R',`A = ${fmt(rho)} × ${fmt(L)} / ${fmt(R)}`,`A = ${fmt(v)} m²`);return {value:v,jawab:j};
+ }},
+{id:'daya',g:'dinamis',tile:'P',title:'Daya Listrik',formula:'P = V · I',desc:'Laju energi listrik yang dipakai alat.',
+ targets:['P','V','I'],
+ fields:[
+  {k:'P',label:'Daya listrik (P)',sym:'P',units:U.W,def:'110'},
+  {k:'V',label:'Tegangan (V)',sym:'V',units:U.V,def:'220'},
+  {k:'I',label:'Kuat arus (I)',sym:'I',units:U.I,def:'0,5'}],
+ compute(s){
+  const r=mulRel(s,{k:'P',sym:'P',u:'W'},{k:'V',sym:'V',u:'V'},{k:'I',sym:'I',u:'A'});
+  const P=s.target==='P'?r.value:s.v.P;
+  r.extras=[{l:'Daya dalam kW',t:fmt(P/1000)+' kW'}];
+  return r;
+ }},
+{id:'daya-hambatan',g:'dinamis',tile:'I²R',title:'Daya pada Hambatan',formula:'P = I²·R = V² / R',desc:'Daya yang berubah menjadi panas pada sebuah hambatan.',
+ fields:[
+  {k:'mode',type:'select',label:'Data yang diketahui',options:[['ir','Kuat arus (I) dan hambatan (R)'],['vr','Tegangan (V) dan hambatan (R)']]},
+  {k:'I',label:'Kuat arus (I)',sym:'I',units:U.I,def:'0,5',when:s=>s.sel.mode==='ir'},
+  {k:'V',label:'Tegangan (V)',sym:'V',units:U.V,def:'220',when:s=>s.sel.mode==='vr'},
+  {k:'R',label:'Hambatan (R)',sym:'R',units:U.R,def:'440'}],
+ compute(s){
+  const {I,V,R}=s.v;let v,j;
+  if(s.sel.mode==='ir'){v=I*I*R;j=['P = I² × R',`P = (${fmt(I)})² × ${fmt(R)}`,`P = ${fmt(v)} W`];}
+  else{need(R>0,'Hambatan harus lebih dari 0.');v=V*V/R;j=['P = V² / R',`P = (${fmt(V)})² / ${fmt(R)}`,`P = ${fmt(v)} W`];}
+  return {main:{sym:'P',units:U.W,value:v},jawab:j,ditanya:'Daya listrik (P)'};
+ }},
+{id:'energi',g:'dinamis',tile:'W',title:'Energi Listrik',formula:'W = P · t',desc:'Energi listrik yang terpakai dalam selang waktu tertentu.',
+ targets:['W','P','t'],
+ fields:[
+  {k:'W',label:'Energi listrik (W)',sym:'W',units:U.J,def:'0,2',u:3,outU:3},
+  {k:'P',label:'Daya (P)',sym:'P',units:U.W,def:'100'},
+  {k:'t',label:'Waktu pemakaian (t)',sym:'t',units:U.t,u:2,def:'2',outU:2}],
+ compute(s){return mulRel(s,{k:'W',sym:'W',u:'J'},{k:'P',sym:'P',u:'W'},{k:'t',sym:'t',u:'s'});}},
+{id:'tagihan',g:'dinamis',tile:'Rp',title:'Tagihan Listrik',formula:'Biaya = kWh × tarif',desc:'Perkiraan pemakaian energi dan biaya listrik rumah dari daftar alat.',
+ fields:[
+  {k:'ap',type:'list',label:'Alat listrik',min:1,max:12,addLabel:'Tambah alat',rowLabel:i=>'Alat '+(i+1),
+   cols:[{k:'nama',label:'Nama alat',type:'text',def:'',wide:true},{k:'daya',label:'Daya',units:[['W',1],['kW',1e3]],u:0,def:'10'},{k:'jml',label:'Jumlah',def:'1',units:[['buah',1]]},{k:'jam',label:'Pemakaian',def:'1',units:[['jam/hari',1]]}],
+   rows:[{nama:'Lampu LED',daya:'10',jml:'5',jam:'6'},{nama:'Kulkas',daya:'100',jml:'1',jam:'8'},{nama:'TV LED',daya:'80',jml:'1',jam:'5'},{nama:'Kipas angin',daya:'50',jml:'2',jam:'6'},{nama:'Setrika',daya:'350',jml:'1',jam:'0,5'}]},
+  {k:'hari',label:'Lama pemakaian',sym:'hari',units:[['hari',1]],def:'30'},
+  {k:'tarif',label:'Tarif listrik per kWh',sym:'tarif',units:[['Rp/kWh',1]],def:'1444,7',hint:'Angka contoh. Ganti sesuai tarif di tagihan PLN rumahmu.'}],
+ compute(s){
+  const {hari,tarif}=s.v;
+  need(hari>0,'Lama pemakaian harus lebih dari 0 hari.');need(tarif>=0,'Tarif tidak boleh negatif.');
+  let total=0;const rows=[],j=[];
+  s.lists.ap.forEach((a,i)=>{
+    need(a.jam>=0&&a.jam<=24,'Pemakaian maksimal 24 jam per hari.');need(a.daya>=0&&a.jml>=0,'Daya dan jumlah tidak boleh negatif.');
+    const kwh=a.daya/1000*a.jml*a.jam*hari;total+=kwh;
+    const nm=a.nama||('Alat '+(i+1));
+    rows.push([nm,fmt(kwh)+' kWh',rupiah(kwh*tarif)]);
+    j.push(`${nm}: ${fmt(a.daya)} W × ${fmt(a.jml)} × ${fmt(a.jam)} jam × ${fmt(hari)} hari = ${fmt(kwh)} kWh`);
+  });
+  rows.push(['Total',fmt(total)+' kWh',rupiah(total*tarif)]);
+  j.push(`Total energi = ${fmt(total)} kWh`,`Biaya = ${fmt(total)} × ${fmt(tarif,6)} = ${rupiah(total*tarif)}`);
+  return {main:{sym:'Biaya',display:rupiah(total*tarif),sub:`${fmt(total)} kWh dalam ${fmt(hari)} hari`,value:total*tarif},jawab:j,ditanya:'Energi dan biaya listrik',dk:s.lists.ap.map((a,i)=>`${a.nama||'Alat '+(i+1)}: ${fmt(a.daya)} W, ${fmt(a.jml)} buah, ${fmt(a.jam)} jam/hari`),
+   extras:[{l:'Energi per hari',t:fmt(total/hari)+' kWh'},{l:'Biaya per hari',t:rupiah(total/hari*tarif)},{l:'Catatan',t:'Belum termasuk pajak dan biaya lain'}],
+   blocks:[{h:'Rincian per alat',html:tableHTML(['Alat','Energi','Biaya'],rows,1)}],summary:`Biaya = ${rupiah(total*tarif)}`};
+ }},
+
+/* ---------- Kemagnetan ---------- */
+{id:'ggl',g:'magnet',tile:'ε',title:'GGL Induksi',formula:'ε = N · ΔΦ / Δt',desc:'Tegangan yang timbul pada kumparan saat fluks magnet berubah.',
+ targets:['E','N','dPhi','dt'],
+ fields:[
+  {k:'E',label:'GGL induksi (ε)',sym:'ε',units:U.V,def:'12'},
+  {k:'N',label:'Jumlah lilitan (N)',sym:'N',units:[['lilitan',1]],def:'200'},
+  {k:'dPhi',label:'Perubahan fluks magnet (ΔΦ)',sym:'ΔΦ',units:U.Wb,def:'0,03'},
+  {k:'dt',label:'Selang waktu (Δt)',sym:'Δt',units:[['s',1],['ms',1e-3]],def:'0,5'}],
+ compute(s){
+  const {E,N,dPhi,dt}=s.v,j=[];
+  const ex=[{l:'Hukum Lenz',t:'Tanda negatif pada ε = −N·ΔΦ/Δt menunjukkan GGL melawan perubahan fluks'}];
+  if(s.target==='E'){need(dt>0,'Selang waktu harus lebih dari 0.');const v=N*Math.abs(dPhi)/dt;j.push('ε = N × ΔΦ / Δt',`ε = ${fmt(N)} × ${fmt(Math.abs(dPhi))} / ${fmt(dt)}`,`ε = ${fmt(v)} V`);return {value:v,jawab:j,extras:ex};}
+  if(s.target==='N'){need(dPhi!==0,'ΔΦ tidak boleh 0.');const v=E*dt/Math.abs(dPhi);j.push('N = ε × Δt / ΔΦ',`N = ${fmt(E)} × ${fmt(dt)} / ${fmt(Math.abs(dPhi))}`,`N = ${fmt(v)} lilitan`);return {value:v,jawab:j};}
+  if(s.target==='dPhi'){need(N>0,'Jumlah lilitan harus lebih dari 0.');const v=E*dt/N;j.push('ΔΦ = ε × Δt / N',`ΔΦ = ${fmt(E)} × ${fmt(dt)} / ${fmt(N)}`,`ΔΦ = ${fmt(v)} Wb`);return {value:v,jawab:j};}
+  need(E>0,'GGL harus lebih dari 0.');const v=N*Math.abs(dPhi)/E;j.push('Δt = N × ΔΦ / ε',`Δt = ${fmt(N)} × ${fmt(Math.abs(dPhi))} / ${fmt(E)}`,`Δt = ${fmt(v)} s`);return {value:v,jawab:j};
+ }},
+{id:'lorentz',g:'magnet',tile:'FL',title:'Gaya Lorentz',formula:'F = B · I · L · sin θ',desc:'Gaya pada kawat berarus di dalam medan magnet.',
+ targets:['F','B','I','L'],
+ fields:[
+  {k:'F',label:'Gaya Lorentz (F)',sym:'F',units:U.N,def:'0,6'},
+  {k:'B',label:'Kuat medan magnet (B)',sym:'B',units:U.T,def:'0,5'},
+  {k:'I',label:'Kuat arus (I)',sym:'I',units:U.I,def:'4'},
+  {k:'L',label:'Panjang kawat (L)',sym:'L',units:U.m,def:'0,3'},
+  {k:'th',label:'Sudut arus terhadap medan (θ)',sym:'θ',units:[['°',1]],def:'90',hint:'Isi 90° jika arus tegak lurus medan magnet.'}],
+ compute(s){
+  const {F,B,I,L,th}=s.v,j=[];
+  let sn=Math.abs(Math.sin(th*Math.PI/180));if(sn<1e-9)sn=0;
+  const sv=fmt(sn);
+  const ar={l:'Arah gaya',t:'Kaidah tangan kanan: ibu jari = arah arus, empat jari = arah B, telapak = arah F'};
+  if(s.target==='F'){const v=B*I*L*sn;j.push('F = B × I × L × sin θ',`F = ${fmt(B)} × ${fmt(I)} × ${fmt(L)} × ${sv}`,`F = ${fmt(v)} N`);return {value:v,jawab:j,extras:[ar]};}
+  need(sn>0,'sin θ = 0, jadi gaya selalu nol. Ubah sudut θ.');
+  const o={B:[I,L],I:[B,L],L:[B,I]}[s.target];need(o[0]*o[1]>0,'Besaran lain harus lebih dari 0.');
+  const v=F/(o[0]*o[1]*sn),u={B:'T',I:'A',L:'m'}[s.target];
+  const oth=['B','I','L'].filter(x=>x!==s.target);
+  j.push(`${s.target} = F / (${oth.join(' × ')} × sin θ)`,`${s.target} = ${fmt(F)} / (${fmt(o[0])} × ${fmt(o[1])} × ${sv})`,`${s.target} = ${fmt(v)} ${u}`);
+  return {value:v,jawab:j};
+ }},
+{id:'medan-kawat',g:'magnet',tile:'B',title:'Medan Magnet Kawat Lurus',formula:'B = μ₀·I / (2π·a)',desc:'Kuat medan magnet pada jarak a dari kawat lurus panjang berarus.',
+ targets:['B','I','a'],consts:['μ₀ = 4π × 10⁻⁷ Wb/A·m'],
+ fields:[
+  {k:'B',label:'Kuat medan magnet (B)',sym:'B',units:U.T,u:2,def:'10'},
+  {k:'I',label:'Kuat arus (I)',sym:'I',units:U.I,def:'5'},
+  {k:'a',label:'Jarak dari kawat (a)',sym:'a',units:U.m,u:1,def:'10'}],
+ compute(s){
+  const {B,I,a}=s.v,j=[],c=MU0/(2*Math.PI);
+  if(s.target==='B'){need(a>0,'Jarak harus lebih dari 0.');const v=c*I/a;j.push('B = μ₀ × I / (2π × a)',`B = ${fmt(MU0)} × ${fmt(I)} / (2π × ${fmt(a)})`,`B = ${fmt(v)} T`);return {value:v,jawab:j};}
+  if(s.target==='I'){need(B>=0,'B tidak boleh negatif.');const v=B*a/c;j.push('I = B × 2π × a / μ₀',`I = ${fmt(B)} × 2π × ${fmt(a)} / ${fmt(MU0)}`,`I = ${fmt(v)} A`);return {value:v,jawab:j};}
+  need(B>0,'B harus lebih dari 0.');const v=c*I/B;j.push('a = μ₀ × I / (2π × B)',`a = ${fmt(MU0)} × ${fmt(I)} / (2π × ${fmt(B)})`,`a = ${fmt(v)} m`);return {value:v,jawab:j};
+ }},
+{id:'solenoida',g:'magnet',tile:'NI/L',title:'Medan Magnet Solenoida',formula:'B = μ₀·N·I / L',desc:'Kuat medan magnet di dalam kumparan panjang (solenoida).',
+ targets:['B','I','N','L'],consts:['μ₀ = 4π × 10⁻⁷ Wb/A·m'],
+ fields:[
+  {k:'B',label:'Kuat medan magnet (B)',sym:'B',units:U.T,u:1,def:'5,03'},
+  {k:'I',label:'Kuat arus (I)',sym:'I',units:U.I,def:'2'},
+  {k:'N',label:'Jumlah lilitan (N)',sym:'N',units:[['lilitan',1]],def:'500'},
+  {k:'L',label:'Panjang solenoida (L)',sym:'L',units:U.m,def:'0,25'}],
+ compute(s){
+  const {B,I,N,L}=s.v,j=[];
+  if(s.target==='B'){need(L>0,'Panjang harus lebih dari 0.');const v=MU0*N*I/L;j.push('B = μ₀ × N × I / L',`B = ${fmt(MU0)} × ${fmt(N)} × ${fmt(I)} / ${fmt(L)}`,`B = ${fmt(v)} T`);return {value:v,jawab:j};}
+  const o={I:[N,I,'I = B × L / (μ₀ × N)',B*L/(MU0*N),'A'],N:[I,N,'N = B × L / (μ₀ × I)',B*L/(MU0*I),'lilitan'],L:[0,0,'L = μ₀ × N × I / B',MU0*N*I/B,'m']}[s.target];
+  if(s.target==='I')need(N>0,'N harus lebih dari 0.');
+  if(s.target==='N')need(I>0,'I harus lebih dari 0.');
+  if(s.target==='L')need(B>0,'B harus lebih dari 0.');
+  j.push(o[2],`${s.target} = ${fmt(o[3])} ${o[4]}`);
+  return {value:o[3],jawab:j};
+ }},
+{id:'trafo',g:'magnet',tile:'Vs',title:'Transformator Ideal',formula:'Np/Ns = Vp/Vs = Is/Ip',desc:'Hitung salah satu besaran trafo. Isi pasangannya dan satu perbandingan lain.',
+ targets:['Vs','Vp','Np','Ns','Ip','Is'],
+ fields:[
+  {k:'Np',label:'Lilitan primer (Np)',sym:'Np',units:[['lilitan',1]],def:'100',opt:true},
+  {k:'Ns',label:'Lilitan sekunder (Ns)',sym:'Ns',units:[['lilitan',1]],def:'500',opt:true},
+  {k:'Vp',label:'Tegangan primer (Vp)',sym:'Vp',units:U.V,def:'12',opt:true},
+  {k:'Vs',label:'Tegangan sekunder (Vs)',sym:'Vs',units:U.V,def:'60',opt:true},
+  {k:'Ip',label:'Arus primer (Ip)',sym:'Ip',units:U.I,def:'5',opt:true},
+  {k:'Is',label:'Arus sekunder (Is)',sym:'Is',units:U.I,def:'1',opt:true}],
+ presets:[{l:'Step-up 12 V → 60 V',set:{Np:'100',Ns:'500',Vp:'12',Vs:'60',Ip:'5',Is:'1'}},{l:'Step-down 220 V → 22 V',set:{Np:'1000',Ns:'100',Vp:'220',Vs:'22',Ip:'0,5',Is:'5'}}],presetLabel:'Contoh trafo',
+ compute(s){
+  const v=s.v,fin=Number.isFinite,P={1:['Np','Ns'],2:['Vp','Vs'],3:['Is','Ip']},T=s.target;
+  const pk=Object.keys(P).find(k=>P[k].includes(T)),num=P[pk][0],den=P[pk][1],partner=T===num?den:num;
+  const unit={N:'lilitan',V:'V',I:'A'}[T[0]];
+  need(fin(v[partner]),`Isi ${partner}, pasangan dari ${T}.`);need(v[partner]>0,`${partner} harus lebih dari 0.`);
+  const ratios=Object.keys(P).filter(k=>k!==pk).filter(k=>fin(v[P[k][0]])&&fin(v[P[k][1]])).map(k=>({n:P[k][0],d:P[k][1],a:v[P[k][0]]/v[P[k][1]]}));
+  need(ratios.length>0,'Isi satu pasang data lain (lilitan, tegangan, atau arus) supaya perbandingannya diketahui.');
+  need(ratios.every(r=>r.a>0&&isFinite(r.a)),'Semua nilai harus lebih dari 0.');
+  const r0=ratios[0],a=r0.a,val=T===num?a*v[partner]:v[partner]/a,j=[];
+  j.push('Np/Ns = Vp/Vs = Is/Ip',`Perbandingan = ${r0.n} / ${r0.d} = ${fmt(v[r0.n])} / ${fmt(v[r0.d])} = ${fmt(a)}`);
+  j.push(T===num?`${T} = perbandingan × ${partner} = ${fmt(a)} × ${fmt(v[partner])}`:`${T} = ${partner} / perbandingan = ${fmt(v[partner])} / ${fmt(a)}`,`${T} = ${fmt(val)} ${unit}`);
+  const ex=[];
+  const stepUp=(T==='Np'||T==='Ns')?null:null;
+  const rN=r0.n==='Is'?1/a:a; // rasio Np/Ns
+  ex.push({l:'Jenis trafo',t:rN<0.9999?'Step-up (penaik tegangan)':rN>1.0001?'Step-down (penurun tegangan)':'Perbandingan 1 : 1'});
+  if(ratios.some(r=>Math.abs(r.a-a)/a>0.02)) ex.push({l:'Perhatian',t:'Data tidak konsisten. Trafo ideal punya perbandingan sama di semua pasangan.'});
+  return {value:val,jawab:j,extras:ex};
+ }},
+{id:'trafo-eff',g:'magnet',tile:'η',title:'Efisiensi Transformator',formula:'η = (Ps / Pp) × 100%',desc:'Perbandingan daya keluaran dan daya masukan trafo.',
+ fields:[
+  {k:'Vp',label:'Tegangan primer (Vp)',sym:'Vp',units:U.V,def:'220'},
+  {k:'Ip',label:'Arus primer (Ip)',sym:'Ip',units:U.I,def:'0,5'},
+  {k:'Vs',label:'Tegangan sekunder (Vs)',sym:'Vs',units:U.V,def:'22'},
+  {k:'Is',label:'Arus sekunder (Is)',sym:'Is',units:U.I,def:'4,5'}],
+ compute(s){
+  const {Vp,Ip,Vs,Is}=s.v,Pp=Vp*Ip,Ps=Vs*Is;
+  need(Pp>0,'Daya primer harus lebih dari 0.');
+  const e=Ps/Pp*100,ex=[{l:'Daya primer (Pp)',t:fmt(Pp)+' W'},{l:'Daya sekunder (Ps)',t:fmt(Ps)+' W'},{l:'Daya yang hilang',t:fmt(Pp-Ps)+' W'}];
+  if(e>100.0001) ex.push({l:'Perhatian',t:'Efisiensi tidak mungkin di atas 100%. Periksa datamu.'});
+  return {main:{sym:'η',units:[['%',1]],value:e},ditanya:'Efisiensi trafo (η)',jawab:['Pp = Vp × Ip',`Pp = ${fmt(Vp)} × ${fmt(Ip)} = ${fmt(Pp)} W`,'Ps = Vs × Is',`Ps = ${fmt(Vs)} × ${fmt(Is)} = ${fmt(Ps)} W`,'η = Ps / Pp × 100%',`η = ${fmt(Ps)} / ${fmt(Pp)} × 100% = ${fmt(e)} %`],extras:ex};
+ }},
+
+/* ---------- Pewarisan sifat ---------- */
+{id:'monohibrid',g:'gen',tile:'Tt',title:'Persilangan Monohibrid',formula:'Tt × Tt → 1 TT : 2 Tt : 1 tt',desc:'Papan Punnett untuk satu sifat beda. Huruf besar dominan, huruf kecil resesif.',
+ fields:[
+  {k:'mode',type:'select',label:'Pola pewarisan',options:[['penuh','Dominan penuh'],['tidak','Dominansi tidak sempurna (intermediet)']]},
+  {k:'p1',type:'text',label:'Genotipe induk 1',def:'Tt',ph:'Tt'},
+  {k:'p2',type:'text',label:'Genotipe induk 2',def:'Tt',ph:'Tt'},
+  {k:'nd',type:'text',label:'Fenotipe dominan (huruf besar)',def:'Tinggi'},
+  {k:'ni',type:'text',label:'Fenotipe intermediet (Tt)',def:'Sedang',when:s=>s.sel.mode==='tidak'},
+  {k:'nr',type:'text',label:'Fenotipe resesif (huruf kecil)',def:'Pendek'},
+  {k:'n',label:'Perkiraan jumlah keturunan',sym:'n',units:[['individu',1]],def:'16'}],
+ presets:[{l:'Tt × Tt',set:{p1:'Tt',p2:'Tt'}},{l:'Tt × tt (uji silang)',set:{p1:'Tt',p2:'tt'}},{l:'TT × tt',set:{p1:'TT',p2:'tt'}},{l:'TT × Tt',set:{p1:'TT',p2:'Tt'}}],presetLabel:'Contoh persilangan',
+ compute(s){
+  const g1=mono1(s.text.p1.replace(/\s/g,'')),g2=mono1(s.text.p2.replace(/\s/g,''));
+  need(g1[0].toLowerCase()===g2[0].toLowerCase(),'Kedua induk harus memakai huruf yang sama.');
+  const L=g1[0].toLowerCase(),D=L.toUpperCase();
+  const al=g=>g.split('').map(c=>c===c.toUpperCase()?D:L);
+  const a1=al(g1),a2=al(g2),n=s.v.n;need(n>0,'Jumlah keturunan harus lebih dari 0.');
+  const gen=(x,y)=>x===y?x+y:D+L;
+  const inter=s.sel.mode==='tidak';
+  const nd=s.text.nd.trim()||'Dominan',nr=s.text.nr.trim()||'Resesif',ni=s.text.ni.trim()||'Intermediet';
+  const phIdx=g=>g===D+D?0:g===D+L?(inter?1:0):2;
+  const names=inter?[nd,ni,nr]:[nd,null,nr];
+  const cnt={};cnt[D+D]=0;cnt[D+L]=0;cnt[L+L]=0;
+  const cell=(i,j)=>{const g=gen(a1[i],a2[j]);cnt[g]++;return {p:phIdx(g)===2?2:phIdx(g),h:esc(g)};};
+  const tbl=punnett(a1.map(esc),a2.map(esc),cell);
+  const gl=[D+D,D+L,L+L],gr=ratio(gl.map(g=>cnt[g]));
+  const pc=[0,0,0];gl.forEach(g=>{pc[phIdx(g)]+=cnt[g];});
+  const pl=inter?[0,1,2]:[0,2],pr=ratio(pl.map(i=>pc[i]));
+  const gRows=gl.filter(g=>cnt[g]>0).map(g=>[g,names[phIdx(g)],`${cnt[g]}/4`,fmt(cnt[g]/4*100)+'%',fmt(cnt[g]/4*n)]);
+  const pRows=pl.filter(i=>pc[i]>0).map(i=>[names[i],`${pc[i]}/4`,fmt(pc[i]/4*100)+'%',fmt(pc[i]/4*n)]);
+  const ratioStr=a=>a.filter(x=>x>0).join(' : ');
+  const gStr=gl.filter(g=>cnt[g]>0).join(' : ')+' = '+ratioStr(gr);
+  const pStr=pl.filter(i=>pc[i]>0).map(i=>names[i]).join(' : ')+' = '+ratioStr(pr);
+  const legend=phLegend(pl.map(i=>[i===2?2:i,names[i]]));
+  return {main:{sym:'Rasio fenotipe',display:ratioStr(pr),sub:pl.filter(i=>pc[i]>0).map(i=>names[i]).join(' : ')},ditanya:'Genotipe dan fenotipe keturunan',
+   dk:[`Induk 1 = ${g1}`,`Induk 2 = ${g2}`,`Pola: ${inter?'dominansi tidak sempurna':'dominan penuh'}`],
+   jawab:[`Gamet induk 1: ${a1.join(', ')}`,`Gamet induk 2: ${a2.join(', ')}`,`Rasio genotipe = ${gStr}`,`Rasio fenotipe = ${pStr}`],
+   blocks:[{h:'Papan Punnett',html:tbl+legend},{h:'Genotipe keturunan',html:tableHTML(['Genotipe','Fenotipe','Bagian','Peluang',`Dari ${fmt(n)}`],gRows,2)},{h:'Fenotipe keturunan',html:tableHTML(['Fenotipe','Bagian','Peluang',`Dari ${fmt(n)}`],pRows,1)}],
+   summary:'Rasio fenotipe '+ratioStr(pr)};
+ }},
+{id:'dihibrid',g:'gen',tile:'TtBb',title:'Persilangan Dihibrid',formula:'TtBb × TtBb → 9 : 3 : 3 : 1',desc:'Papan Punnett untuk dua sifat beda yang diwariskan bebas.',
+ fields:[
+  {k:'p1',type:'text',label:'Genotipe induk 1 (4 huruf)',def:'TtBb',ph:'TtBb'},
+  {k:'p2',type:'text',label:'Genotipe induk 2 (4 huruf)',def:'TtBb',ph:'TtBb'},
+  {k:'a1',type:'text',label:'Sifat 1 dominan (huruf besar pertama)',def:'Tinggi'},
+  {k:'a2',type:'text',label:'Sifat 1 resesif',def:'Pendek'},
+  {k:'b1',type:'text',label:'Sifat 2 dominan (huruf besar kedua)',def:'Bulat'},
+  {k:'b2',type:'text',label:'Sifat 2 resesif',def:'Keriput'},
+  {k:'n',label:'Perkiraan jumlah keturunan',sym:'n',units:[['individu',1]],def:'160'}],
+ presets:[{l:'TtBb × TtBb',set:{p1:'TtBb',p2:'TtBb'}},{l:'TtBb × ttbb (uji silang)',set:{p1:'TtBb',p2:'ttbb'}},{l:'TTBB × ttbb',set:{p1:'TTBB',p2:'ttbb'}},{l:'TtBB × TtBb',set:{p1:'TtBB',p2:'TtBb'}}],presetLabel:'Contoh persilangan',
+ compute(s){
+  const t1=s.text.p1.replace(/\s/g,''),t2=s.text.p2.replace(/\s/g,'');
+  const chk=t=>{need(/^[A-Za-z]{4}$/.test(t),'Tulis genotipe dengan 4 huruf, misalnya TtBb.');need(t[0].toLowerCase()===t[1].toLowerCase()&&t[2].toLowerCase()===t[3].toLowerCase(),'Huruf 1-2 harus sama (satu sifat), begitu juga huruf 3-4. Contoh: TtBb.');need(t[0].toLowerCase()!==t[2].toLowerCase(),'Dua sifat harus memakai huruf yang berbeda.');};
+  chk(t1);chk(t2);
+  need(t1[0].toLowerCase()===t2[0].toLowerCase()&&t1[2].toLowerCase()===t2[2].toLowerCase(),'Kedua induk harus memakai huruf yang sama untuk tiap sifat.');
+  const A=t1[0].toLowerCase(),B=t1[2].toLowerCase(),AU=A.toUpperCase(),BU=B.toUpperCase(),n=s.v.n;need(n>0,'Jumlah keturunan harus lebih dari 0.');
+  const nm=(k,d)=>s.text[k].trim()||d;
+  const N1d=nm('a1','Sifat 1 dominan'),N1r=nm('a2','Sifat 1 resesif'),N2d=nm('b1','Sifat 2 dominan'),N2r=nm('b2','Sifat 2 resesif');
+  const nA=c=>c===c.toUpperCase()?AU:A,nB=c=>c===c.toUpperCase()?BU:B;
+  const gam=t=>{const o=[];[t[0],t[1]].forEach(x=>[t[2],t[3]].forEach(y=>o.push(nA(x)+nB(y))));return o;};
+  const g1=gam(t1),g2=gam(t2);
+  const pair=(x,y,D,r)=>x===y?x+y:D+r;
+  const cnt={},pc=[0,0,0,0];
+  const cell=(i,j)=>{
+    const a=pair(g1[i][0],g2[j][0],AU,A),b=pair(g1[i][1],g2[j][1],BU,B),g=a+b;
+    cnt[g]=(cnt[g]||0)+1;
+    const p=(a.includes(AU)?0:2)+(b.includes(BU)?0:1);pc[p]++;
+    return {p,h:esc(g)};
+  };
+  const tbl=punnett(g1,g2,cell);
+  const order=[];[AU+AU,AU+A,A+A].forEach(x=>[BU+BU,BU+B,B+B].forEach(y=>order.push(x+y)));
+  const gl=order.filter(g=>cnt[g]>0),gr=ratio(gl.map(g=>cnt[g]));
+  const pn=[N1d+' + '+N2d,N1d+' + '+N2r,N1r+' + '+N2d,N1r+' + '+N2r];
+  const pr=ratio(pc),idx=[0,1,2,3].filter(i=>pc[i]>0);
+  const phOf=g=>(g[0]===AU||g[1]===AU?0:2)+(g[2]===BU||g[3]===BU?0:1);
+  const gRows=gl.map(g=>[g,pn[phOf(g)],`${cnt[g]}/16`,fmt(cnt[g]/16*n)]);
+  const pRows=idx.map(i=>[pn[i],`${pc[i]}/16`,fmt(pc[i]/16*100)+'%',fmt(pc[i]/16*n)]);
+  const rs=idx.map(i=>pr[i]).join(' : ');
+  return {main:{sym:'Rasio fenotipe',display:rs,sub:idx.map(i=>['A_B_','A_bb','aaB_','aabb'][i].replace(/A/g,AU).replace(/a/g,A).replace(/B/g,BU).replace(/b/g,B)).join(' : ')},ditanya:'Genotipe dan fenotipe keturunan',
+   dk:[`Induk 1 = ${t1}`,`Induk 2 = ${t2}`],
+   jawab:[`Gamet induk 1: ${g1.join(', ')}`,`Gamet induk 2: ${g2.join(', ')}`,`Rasio genotipe = ${gl.join(' : ')} = ${gl.map(g=>gr[order.filter(x=>cnt[x]>0).indexOf(g)]).join(' : ')}`,`Rasio fenotipe = ${rs}`],
+   blocks:[{h:'Papan Punnett',html:tbl+phLegend(idx.map(i=>[i,pn[i]]))},{h:'Fenotipe keturunan',html:tableHTML(['Fenotipe','Bagian','Peluang',`Dari ${fmt(n)}`],pRows,1)},{h:'Genotipe keturunan',html:tableHTML(['Genotipe','Fenotipe','Bagian',`Dari ${fmt(n)}`],gRows,2)}],
+   summary:'Rasio fenotipe '+rs};
+ }},
+{id:'darah',g:'gen',tile:'ABO',title:'Golongan Darah',formula:'IA, IB dominan terhadap IO',desc:'Kemungkinan golongan darah anak dari genotipe kedua orang tua (alel ganda).',
+ fields:[
+  {k:'p1',type:'select',label:'Orang tua 1',options:BLOOD.map(([v,l])=>[v,l])},
+  {k:'p2',type:'select',label:'Orang tua 2',options:BLOOD.map(([v,l])=>[v,l])}],
+ presets:[{l:'AO × BO',set:{p1:'AO',p2:'BO'}},{l:'AB × OO',set:{p1:'AB',p2:'OO'}},{l:'AA × BB',set:{p1:'AA',p2:'BB'}},{l:'AO × AO',set:{p1:'AO',p2:'AO'}}],presetLabel:'Contoh persilangan',
+ compute(s){
+  const g1=s.sel.p1,g2=s.sel.p2,a1=g1.split(''),a2=g2.split(''),cnt={A:0,B:0,AB:0,O:0},gc={};
+  const ord=['A','B','AB','O'],phIdx=p=>ord.indexOf(p);
+  const cell=(i,j)=>{const g=bSort(a1[i]+a2[j]),p=bPheno(g);cnt[p]++;gc[g]=(gc[g]||0)+1;return {p:phIdx(p),h:bloodHTML(g)};};
+  const tbl=punnett(a1.map(x=>`I<sup>${x}</sup>`),a2.map(x=>`I<sup>${x}</sup>`),cell);
+  const poss=ord.filter(p=>cnt[p]>0),rr=ratio(ord.map(p=>cnt[p]));
+  const rows=poss.map(p=>[p,`${cnt[p]}/4`,fmt(cnt[p]/4*100)+'%']);
+  const gRows=Object.keys(gc).map(g=>[`I${g[0]}I${g[1]}`,bPheno(g),`${gc[g]}/4`]);
+  const rs=ord.map((p,i)=>cnt[p]>0?rr[i]:null).filter(x=>x!==null).join(' : ');
+  return {main:{sym:'Rasio golongan darah anak',display:rs,sub:poss.join(' : ')},ditanya:'Kemungkinan golongan darah anak',
+   dk:[`Orang tua 1: golongan ${bPheno(g1)} (I${g1[0]}I${g1[1]})`,`Orang tua 2: golongan ${bPheno(g2)} (I${g2[0]}I${g2[1]})`],
+   jawab:[`Gamet orang tua 1: ${a1.map(x=>'I'+x).join(', ')}`,`Gamet orang tua 2: ${a2.map(x=>'I'+x).join(', ')}`,`Golongan darah anak yang mungkin: ${poss.join(', ')}`,`Rasio = ${poss.join(' : ')} = ${rs}`],
+   extras:[{l:'Tidak mungkin lahir',t:ord.filter(p=>cnt[p]===0).join(', ')||'Semua golongan mungkin'}],
+   blocks:[{h:'Papan Punnett',html:tbl+phLegend(poss.map(p=>[phIdx(p),'Golongan '+p]))},{h:'Golongan darah anak',html:tableHTML(['Golongan','Bagian','Peluang'],rows,1)},{h:'Genotipe anak',html:tableHTML(['Genotipe','Golongan','Bagian'],gRows,2)}],
+   summary:'Anak mungkin bergolongan '+poss.join(', ')};
+ }},
+
+/* ---------- Alat bantu ---------- */
+{id:'konversi',g:'alat',tile:'m→k',title:'Pengubah Satuan',formula:'mA → A, kWh → J, cm² → m² …',desc:'Ubah satuan besaran listrik dan magnet dengan cepat.',custom:true}
+];
+
+const CONV={
+  'Kuat arus':[['µA',1e-6],['mA',1e-3],['A',1],['kA',1e3]],
+  'Tegangan':[['µV',1e-6],['mV',1e-3],['V',1],['kV',1e3]],
+  'Hambatan':[['mΩ',1e-3],['Ω',1],['kΩ',1e3],['MΩ',1e6]],
+  'Muatan':[['nC',1e-9],['µC',1e-6],['mC',1e-3],['C',1],['mAh',3.6],['Ah',3600]],
+  'Daya':[['mW',1e-3],['W',1],['kW',1e3],['MW',1e6]],
+  'Energi':[['J',1],['kJ',1e3],['Wh',3600],['kWh',3.6e6],['kal',4.184],['kkal',4184]],
+  'Waktu':[['ms',1e-3],['s',1],['menit',60],['jam',3600],['hari',86400]],
+  'Panjang':[['mm',1e-3],['cm',1e-2],['m',1],['km',1e3]],
+  'Luas penampang':[['mm²',1e-6],['cm²',1e-4],['m²',1]],
+  'Medan magnet':[['µT',1e-6],['mT',1e-3],['T',1],['G',1e-4]]
+};
+
+/* ========== Soal latihan ========== */
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const GEN=[
+ {t:'statis',f(){
+  const q1=pick([1,2,3,4,5,6]),q2=pick([2,3,4,5,6]),r=pick([10,20,30,40,50]);
+  const F=K*q1*1e-6*q2*1e-6/Math.pow(r/100,2);
+  return {q:`Dua muatan ${q1} µC dan ${q2} µC sejenis terpisah ${r} cm. Hitung gaya tolak-menolak keduanya dalam newton (k = 9 × 10⁹ N·m²/C²).`,ans:F,unit:'N',
+   sol:['F = k × q₁ × q₂ / r²',`F = 9 × 10⁹ × ${q1}×10⁻⁶ × ${q2}×10⁻⁶ / (${r/100})²`,`F = ${fmt(F)} N`]};}},
+ {t:'statis',f(){
+  const F=pick([0.02,0.04,0.06,0.12,0.5]),q=pick([1,2,4,5]);const E=F/(q*1e-6);
+  return {q:`Muatan uji ${q} µC mengalami gaya ${fmt(F)} N di dalam medan listrik. Berapa kuat medan listriknya dalam N/C?`,ans:E,unit:'N/C',
+   sol:['E = F / q',`E = ${fmt(F)} / ${q}×10⁻⁶`,`E = ${fmt(E)} N/C`]};}},
+ {t:'statis',f(){
+  const Q=pick([1.6,3.2,4.8,8]);const n=Q*1e-6/ECH;
+  return {q:`Sebuah benda kelebihan muatan ${fmt(Q)} µC. Berapa jumlah elektron yang berlebih (e = 1,6 × 10⁻¹⁹ C)? Tulis seperti 2e13.`,ans:n,unit:'elektron',
+   sol:['n = Q / e',`n = ${fmt(Q)}×10⁻⁶ / 1,6×10⁻¹⁹`,`n = ${fmt(n)} elektron`]};}},
+ {t:'dinamis',f(){
+  const R=pick([2,3,4,5,6,8,10,12,15,20,25,40]),I=pick([0.5,1,1.5,2,2.5,3,4,5]),V=R*I,k=pick(['V','I','R']);
+  if(k==='V') return {q:`Penghambat ${R} Ω dialiri arus ${fmt(I)} A. Berapa tegangan pada penghambat itu?`,ans:V,unit:'V',sol:['V = I × R',`V = ${fmt(I)} × ${R}`,`V = ${fmt(V)} V`]};
+  if(k==='I') return {q:`Tegangan ${fmt(V)} V dipasang pada hambatan ${R} Ω. Berapa kuat arus yang mengalir?`,ans:I,unit:'A',sol:['I = V / R',`I = ${fmt(V)} / ${R}`,`I = ${fmt(I)} A`]};
+  return {q:`Pada sebuah penghantar mengalir arus ${fmt(I)} A saat tegangannya ${fmt(V)} V. Berapa hambatannya?`,ans:R,unit:'Ω',sol:['R = V / I',`R = ${fmt(V)} / ${fmt(I)}`,`R = ${R} Ω`]};}},
+ {t:'dinamis',f(){
+  const Q=pick([30,60,90,120,240,300]),t=pick([10,20,30,60]),I=Q/t;
+  return {q:`Muatan ${Q} C mengalir melalui kawat selama ${t} detik. Berapa kuat arusnya?`,ans:I,unit:'A',sol:['I = Q / t',`I = ${Q} / ${t}`,`I = ${fmt(I)} A`]};}},
+ {t:'dinamis',f(){
+  if(Math.random()<.5){const sets=[[6,3],[12,4],[20,30],[10,10],[15,10],[30,60],[40,10]],[a,b]=pick(sets),R=a*b/(a+b);
+   return {q:`Dua resistor ${a} Ω dan ${b} Ω dirangkai paralel. Berapa hambatan penggantinya?`,ans:R,unit:'Ω',sol:['1/Rp = 1/R₁ + 1/R₂',`1/Rp = 1/${a} + 1/${b}`,`Rp = ${fmt(R)} Ω`]};}
+  const a=pick([2,4,5,6,10]),b=pick([3,5,8,12,15]),c=pick([1,2,7,9,20]),R=a+b+c;
+  return {q:`Tiga resistor ${a} Ω, ${b} Ω, dan ${c} Ω dirangkai seri. Berapa hambatan penggantinya?`,ans:R,unit:'Ω',sol:['Rs = R₁ + R₂ + R₃',`Rs = ${a} + ${b} + ${c}`,`Rs = ${R} Ω`]};}},
+ {t:'dinamis',f(){
+  const dev=pick([['setrika',350],['lampu',20],['kipas angin',60],['televisi',100],['kulkas',120],['penanak nasi',400]]),h=pick([2,3,4,5,6,8]);
+  if(Math.random()<.5){const kwh=dev[1]*h/1000;return {q:`Sebuah ${dev[0]} berdaya ${dev[1]} W menyala ${h} jam. Berapa energi listrik yang terpakai dalam kWh?`,ans:kwh,unit:'kWh',sol:['W = P × t',`W = ${dev[1]/1000} kW × ${h} jam`,`W = ${fmt(kwh)} kWh`]};}
+  const tr=pick([1000,1500,2000]),kwh=dev[1]*h/1000*30,cost=kwh*tr;
+  return {q:`Sebuah ${dev[0]} berdaya ${dev[1]} W menyala ${h} jam setiap hari selama 30 hari. Jika tarif Rp ${tr} per kWh, berapa biayanya dalam rupiah?`,ans:cost,unit:'Rp',sol:['Energi = P × t × hari',`Energi = ${dev[1]/1000} × ${h} × 30 = ${fmt(kwh)} kWh`,`Biaya = ${fmt(kwh)} × ${tr} = Rp ${fmt(cost)}`]};}},
+ {t:'magnet',f(){
+  const N=pick([100,200,500,1000]),dP=pick([0.01,0.02,0.05,0.1]),dt=pick([0.1,0.2,0.5,1,2]),E=N*dP/dt;
+  return {q:`Kumparan ${N} lilitan mengalami perubahan fluks ${fmt(dP)} Wb dalam ${fmt(dt)} s. Berapa GGL induksinya?`,ans:E,unit:'V',sol:['ε = N × ΔΦ / Δt',`ε = ${N} × ${fmt(dP)} / ${fmt(dt)}`,`ε = ${fmt(E)} V`]};}},
+ {t:'magnet',f(){
+  const B=pick([0.1,0.2,0.5,1,2]),I=pick([2,3,4,5,10]),L=pick([0.1,0.2,0.5,1,2]),F=B*I*L;
+  return {q:`Kawat sepanjang ${fmt(L)} m dialiri arus ${I} A tegak lurus medan magnet ${fmt(B)} T. Berapa gaya Lorentz pada kawat?`,ans:F,unit:'N',sol:['F = B × I × L',`F = ${fmt(B)} × ${I} × ${fmt(L)}`,`F = ${fmt(F)} N`]};}},
+ {t:'magnet',f(){
+  const [Np,Ns]=pick([[100,500],[200,100],[500,50],[1000,100],[300,900],[400,200],[100,1000],[600,300]]),Vp=pick([6,12,24,110,220]);
+  if(Math.random()<.6){const Vs=Vp*Ns/Np;return {q:`Trafo ideal punya ${Np} lilitan primer dan ${Ns} lilitan sekunder. Jika tegangan primernya ${Vp} V, berapa tegangan sekundernya?`,ans:Vs,unit:'V',sol:['Vp / Vs = Np / Ns',`Vs = Vp × Ns / Np = ${Vp} × ${Ns} / ${Np}`,`Vs = ${fmt(Vs)} V`]};}
+  const Ip=pick([1,2,4,5]),Is=Ip*Np/Ns;
+  return {q:`Trafo ideal punya ${Np} lilitan primer dan ${Ns} lilitan sekunder. Jika arus primernya ${Ip} A, berapa arus sekundernya?`,ans:Is,unit:'A',sol:['Is / Ip = Np / Ns',`Is = Ip × Np / Ns = ${Ip} × ${Np} / ${Ns}`,`Is = ${fmt(Is)} A`]};}},
+ {t:'gen',f(){
+  const L=pick(['T','B','R','K']),l=L.toLowerCase(),c=pick([[L+l,L+l,75,25],[L+l,l+l,50,50],[L+L,l+l,100,0],[L+L,L+l,100,0]]),dom=Math.random()<.6;
+  const ans=dom?c[2]:c[3];
+  return {q:`Persilangan ${c[0]} × ${c[1]} (${L} dominan terhadap ${l}). Berapa persen keturunan yang berfenotipe ${dom?'dominan':'resesif'}?`,ans,unit:'%',sol:[`Buat papan Punnett ${c[0]} × ${c[1]}.`,`Keturunan dominan = ${c[2]}%, resesif = ${c[3]}%`,`Jawaban = ${ans}%`]};}},
+ {t:'gen',f(){
+  const n=pick([16,32,48,64,80,160]);
+  if(Math.random()<.5){const k=pick(['dominan','resesif']),ans=k==='dominan'?n*3/4:n/4;
+   return {q:`Persilangan Bb × Bb menghasilkan ${n} keturunan. Perkiraan berapa yang berfenotipe ${k}?`,ans,unit:'individu',sol:['Rasio fenotipe Bb × Bb = 3 dominan : 1 resesif',`${k==='dominan'?'3':'1'}/4 × ${n}`,`= ${ans} individu`]};}
+  const ans=n*9/16;
+  return {q:`Persilangan RrYy × RrYy menghasilkan ${n} keturunan. Perkiraan berapa yang berfenotipe dominan untuk kedua sifat (R_Y_)? Rasio dihibrid 9 : 3 : 3 : 1.`,ans,unit:'individu',sol:['Rasio dihibrid = 9 : 3 : 3 : 1',`9/16 × ${n}`,`= ${fmt(ans)} individu`]};}}
+];
+
+/* ========== Rumus ringkas ========== */
+const FORMULAS=[
+ {g:'statis',items:[
+  ['Gaya Coulomb','F = k·q₁·q₂ / r²','k = 9×10⁹ N·m²/C². Sejenis tolak-menolak, berlawanan tarik-menarik.','coulomb'],
+  ['Kuat medan listrik','E = F / q','Satuan N/C.','medan'],
+  ['Medan muatan titik','E = k·Q / r²','Menjauhi muatan positif, menuju muatan negatif.','medan-titik'],
+  ['Muatan benda','Q = n·e','e = 1,6×10⁻¹⁹ C. Elektron bermuatan negatif.','muatan'],
+  ['Beda potensial','W = V·q','Satuan V (volt) = J/C.','potensial']]},
+ {g:'dinamis',items:[
+  ['Kuat arus','I = Q / t','1 A = 1 C/s.','arus'],
+  ['Hukum Ohm','V = I·R','Berlaku untuk penghantar ohmik.','ohm'],
+  ['Hambatan seri','Rs = R₁ + R₂ + …','Arus sama, tegangan terbagi.','seri-paralel'],
+  ['Hambatan paralel','1/Rp = 1/R₁ + 1/R₂ + …','Tegangan sama, arus terbagi.','seri-paralel'],
+  ['Hambatan kawat','R = ρ·L / A','ρ = hambatan jenis (Ω·m).','kawat'],
+  ['Daya listrik','P = V·I = I²·R = V² / R','Satuan watt (W).','daya'],
+  ['Energi listrik','W = P·t','1 kWh = 3,6×10⁶ J.','energi'],
+  ['Biaya listrik','Biaya = kWh × tarif','kWh = daya (kW) × jam.','tagihan']]},
+ {g:'magnet',items:[
+  ['GGL induksi','ε = −N·ΔΦ / Δt','Tanda minus = hukum Lenz.','ggl'],
+  ['Gaya Lorentz','F = B·I·L·sin θ','θ = sudut antara arus dan B.','lorentz'],
+  ['Kawat lurus berarus','B = μ₀·I / (2π·a)','μ₀ = 4π×10⁻⁷ Wb/A·m.','medan-kawat'],
+  ['Solenoida','B = μ₀·N·I / L','Medan seragam di dalam kumparan.','solenoida'],
+  ['Transformator ideal','Np/Ns = Vp/Vs = Is/Ip','Step-up: Ns > Np. Step-down: Ns < Np.','trafo'],
+  ['Efisiensi trafo','η = (Ps / Pp) × 100%','Trafo nyata selalu η < 100%.','trafo-eff']]},
+ {g:'gen',items:[
+  ['Monohibrid Tt × Tt','TT : Tt : tt = 1 : 2 : 1','Fenotipe dominan : resesif = 3 : 1.','monohibrid'],
+  ['Uji silang Tt × tt','Tt : tt = 1 : 1','Fenotipe dominan : resesif = 1 : 1.','monohibrid'],
+  ['Dihibrid TtBb × TtBb','9 : 3 : 3 : 1','16 kombinasi gamet, 4 fenotipe.','dihibrid'],
+  ['Jumlah keturunan','perkiraan = peluang × n','Contoh: 3/4 × 80 = 60.',null],
+  ['Golongan darah','IA, IB dominan; IO resesif','A: IAIA / IAIO. B: IBIB / IBIO. AB: IAIB. O: IOIO.','darah']]}
+];
+const CONSTS=[['k (tetapan Coulomb)','9 × 10⁹ N·m²/C²'],['e (muatan elektron)','1,6 × 10⁻¹⁹ C'],['μ₀ (permeabilitas)','4π × 10⁻⁷ Wb/A·m'],['1 kWh','3,6 × 10⁶ J'],['1 Ah','3.600 C'],['1 kal','4,184 J']];
+
+/* ========== Penyimpanan (riwayat) ========== */
+const HKEY='kalkulator-ipa9:riwayat',PKEY='kalkulator-ipa9:latihan';
+let memH=[];
+function loadH(){try{const a=JSON.parse(localStorage.getItem(HKEY)||'[]');return Array.isArray(a)?a:memH;}catch(e){return memH;}}
+function saveH(a){memH=a;try{localStorage.setItem(HKEY,JSON.stringify(a));}catch(e){}}
+
+/* ========== Mesin kalkulator ========== */
+const app=$('#app');
+let cur=null,pendingSnap=null,homeG='all',homeQ='',stOut={};
+const fld=(c,k)=>c.fields.find(f=>f.k===k);
+const siIdx=us=>{const i=us.findIndex(u=>u[1]===1);return i<0?0:i;};
+
+function fieldHTML(f){
+  const id='f-'+f.k;
+  if(f.type==='select') return `<div class="field" data-k="${f.k}"><label for="${id}">${esc(f.label)}</label><select id="${id}">${f.options.map(o=>`<option value="${esc(o[0])}">${esc(o[1])}</option>`).join('')}</select></div>`;
+  if(f.type==='text') return `<div class="field" data-k="${f.k}"><label for="${id}">${esc(f.label)}</label><input id="${id}" type="text" autocomplete="off" value="${esc(f.def||'')}" placeholder="${esc(f.ph||'')}"></div>`;
+  if(f.type==='list') return `<div class="field" data-k="${f.k}"><span class="lbl">${esc(f.label)}</span><div data-list="${f.k}">${f.rows.map((r,i)=>rowHTML(f,i,r)).join('')}</div><button type="button" class="btn small addbtn" data-act="add" data-k="${f.k}">+ ${esc(f.addLabel)}</button><div class="hint" data-lh="${f.k}"></div></div>`;
+  const us=f.units||U.none;
+  const unit=us.length>1?`<select id="u-${f.k}" aria-label="Satuan ${esc(f.sym)}">${us.map((u,i)=>`<option value="${i}"${i===(f.u||0)?' selected':''}>${esc(u[0])}</option>`).join('')}</select>`:(us[0][0]?`<span class="unit-static">${esc(us[0][0])}</span>`:'');
+  const im=(f.signed||f.sci)?'text':'decimal';
+  return `<div class="field" data-k="${f.k}"><label for="${id}">${esc(f.label)}</label><div class="inp"><input id="${id}" type="text" inputmode="${im}" autocomplete="off" value="${esc(f.def==null?'':f.def)}">${unit}</div>${f.hint?`<div class="hint">${esc(f.hint)}</div>`:''}</div>`;
+}
+function rowHTML(f,i,row){
+  const cols=f.cols.map(c=>{
+    const cv=row&&row[c.k];
+    const v=cv&&typeof cv==='object'?cv.v:(cv!=null?cv:(c.def||'')),u=cv&&typeof cv==='object'?cv.u:(c.u||0);
+    const us=c.units;
+    const inp=c.type==='text'?`<input type="text" data-c="${c.k}" value="${esc(v)}" placeholder="mis. Lampu" autocomplete="off" aria-label="${esc(c.label)}">`:`<input type="text" inputmode="decimal" data-c="${c.k}" value="${esc(v)}" autocomplete="off" aria-label="${esc(c.label)}">`;
+    const sel=us&&us.length>1?`<select data-cu="${c.k}" aria-label="Satuan ${esc(c.label)}">${us.map((x,n)=>`<option value="${n}"${n===u?' selected':''}>${esc(x[0])}</option>`).join('')}</select>`:(us&&us[0][0]?`<span class="unit-static">${esc(us[0][0])}</span>`:'');
+    return `<div class="lcol${c.wide?' wide':''}"><span class="lbl">${esc(c.label)}</span><div class="inp">${inp}${sel}</div></div>`;
+  }).join('');
+  return `<div class="lrow" data-row><div class="lhead"><strong class="rl">${esc(f.rowLabel(i))}</strong><button type="button" class="btn small" data-act="del" data-k="${f.k}">Hapus</button></div><div class="lcols">${cols}</div></div>`;
+}
+function panelHTML(calc){
+  return `<section class="panel">
+  ${calc.presets?`<div data-presets><span class="lbl">${esc(calc.presetLabel||'Contoh cepat')}</span><div class="chips wrap">${calc.presets.map((p,i)=>`<button type="button" class="chip" data-act="preset" data-i="${i}">${esc(p.l)}</button>`).join('')}</div></div>`:''}
+  ${calc.targets?`<div class="field"><span class="lbl" id="t-lbl">Yang dicari</span><div class="seg" role="group" aria-labelledby="t-lbl">${calc.targets.map(k=>`<button type="button" data-act="target" data-t="${k}" title="${esc(fld(calc,k).label)}" aria-pressed="false">${esc(fld(calc,k).sym)}</button>`).join('')}</div></div>`:''}
+  ${calc.fields.map(fieldHTML).join('')}</section>`;
+}
+const isVisible=(f,s)=>f.k!==s.target&&(!f.when||f.when(s));
+
+function readState(calc){
+  const s={target:cur.target,v:{},raw:{},uidx:{},sel:{},text:{},lists:{}};
+  calc.fields.forEach(f=>{if(f.type==='select')s.sel[f.k]=$('#f-'+f.k).value;else if(f.type==='text')s.text[f.k]=$('#f-'+f.k).value;});
+  calc.fields.forEach(f=>{
+    if(f.type==='select'||f.type==='text') return;
+    if(f.type==='list'){
+      s.lists[f.k]=$$(`[data-list="${f.k}"] [data-row]`).map(r=>{
+        const o={};
+        f.cols.forEach(c=>{
+          const el=r.querySelector(`[data-c="${c.k}"]`);
+          if(c.type==='text'){o[c.k]=el.value.trim();return;}
+          const ui=+((r.querySelector(`[data-cu="${c.k}"]`)||{}).value||0),us=c.units||U.none;
+          o[c.k]=parseNum(el.value)*us[ui][1];
+        });
+        return o;
+      });
+      return;
+    }
+    const us=f.units||U.none,ui=+(($('#u-'+f.k)||{}).value||f.u||0);
+    s.raw[f.k]=$('#f-'+f.k).value.trim();s.uidx[f.k]=ui;
+    s.v[f.k]=parseNum(s.raw[f.k])*us[ui][1];
+  });
+  return s;
+}
+function missing(calc,s){
+  for(const f of calc.fields){
+    if(!isVisible(f,s)) continue;
+    if(f.type==='select') continue;
+    if(f.type==='text'){continue;}
+    if(f.type==='list'){
+      const rows=s.lists[f.k];
+      for(const r of rows){for(const c of f.cols){if(c.type!=='text'&&!Number.isFinite(r[c.k])) return `Isi semua kolom angka pada “${f.label}”.`;}}
+      continue;
+    }
+    if(!f.opt&&!Number.isFinite(s.v[f.k])) return `Isi kolom “${f.label}” dengan angka. Gunakan koma untuk desimal, mis. 2,5 atau 2e-6.`;
+  }
+  return null;
+}
+function mainOf(calc,s,res){
+  if(res.main) return res.main;
+  const f=fld(calc,s.target);
+  return {sym:f.sym,units:f.units||U.none,value:res.value,outU:f.outU};
+}
+function shown(m,key){
+  if(m.display!=null) return {text:m.display,unit:''};
+  const us=m.units||U.none;
+  let i=stOut[key];if(i==null||i>=us.length) i=m.outU!=null?m.outU:siIdx(us);
+  return {text:fmt(m.value/us[i][1]),unit:us[i][0],idx:i,us};
+}
+function buildSteps(calc,s,res){
+  const dk=[];
+  calc.fields.forEach(f=>{
+    if(!isVisible(f,s)||f.type) return;
+    const si=s.v[f.k];if(!Number.isFinite(si)) return;
+    const us=f.units||U.none,u=us[s.uidx[f.k]||0],siU=us[siIdx(us)][0];
+    let line=`${f.sym} = ${s.raw[f.k]}${u[0]?' '+u[0]:''}`;
+    if(u[1]!==1) line+=` = ${fmt(si)} ${siU}`;
+    dk.push(line);
+  });
+  (res.dk||[]).forEach(x=>dk.push(x));
+  (calc.consts||[]).forEach(x=>dk.push(x));
+  let dt=res.ditanya;
+  if(!dt){const f=s.target?fld(calc,s.target):null;dt=f?f.label:'Hasil';}
+  return {dk,dt,jw:res.jawab||[]};
+}
+function summaryText(calc,s,res){
+  if(res.summary) return res.summary;
+  const m=mainOf(calc,s,res),sh=shown(m,calc.id+':'+s.target);
+  return `${m.sym} = ${sh.text}${sh.unit?' '+sh.unit:''}`;
+}
+function renderResult(){
+  const box=$('#result');if(!box||!cur||!cur.calc) return;
+  const {calc,s,res}=cur;let err=cur.err;
+  if(!err&&res&&res.value!==undefined&&!Number.isFinite(res.value)) err='Hasil tidak bisa dihitung dari angka ini. Periksa kembali isiannya.';
+  if(err){
+    box.innerHTML=`<div class="lcd err" aria-live="polite"><div class="cap">Hasil</div><div class="val">— — —</div></div><div class="msg" role="status">${esc(err)}</div>`;
+    return;
+  }
+  const m=mainOf(calc,s,res),key=calc.id+':'+s.target,sh=shown(m,key);
+  const chips=sh.us&&sh.us.length>1?`<div class="units" role="group" aria-label="Satuan hasil">${sh.us.map((u,i)=>`<button type="button" data-act="unit" data-i="${i}" aria-pressed="${i===sh.idx}">${esc(u[0])}</button>`).join('')}</div>`:'';
+  let h=`<div class="lcd" aria-live="polite"><div class="cap">Hasil · ${esc(m.sym)}</div><div class="val">${esc(sh.text)}${sh.unit?`<span class="u"> ${esc(sh.unit)}</span>`:''}</div>${m.sub?`<div class="sub">${esc(m.sub)}</div>`:''}${chips}</div>`;
+  if(res.extras&&res.extras.length) h+=`<section class="panel"><dl class="kv">${res.extras.map(x=>`<div><dt>${esc(x.l)}</dt><dd>${esc(x.t)}</dd></div>`).join('')}</dl></section>`;
+  (res.blocks||[]).forEach(b=>{h+=`<section class="panel"><h3>${esc(b.h)}</h3>${b.html}</section>`;});
+  const st=buildSteps(calc,s,res);
+  h+=`<section class="panel"><h3>Cara pengerjaan</h3>
+   <div class="sx"><h4>Diketahui</h4>${st.dk.map(x=>`<div class="ln">${esc(x)}</div>`).join('')||'<div class="ln">—</div>'}</div>
+   <div class="sx"><h4>Ditanya</h4><div class="ln">${esc(st.dt)}</div></div>
+   <div class="sx"><h4>Jawab</h4>${st.jw.map((x,i)=>`<div class="ln${i===st.jw.length-1?' last':''}">${esc(x)}</div>`).join('')}</div></section>
+   <div class="actions"><button type="button" class="btn primary" data-act="save">Simpan ke riwayat</button><button type="button" class="btn" data-act="copy">Salin hasil</button></div><div class="hint" id="fb" role="status" style="margin-top:8px"></div>`;
+  box.innerHTML=h;
+}
+function update(){
+  if(!cur||!cur.calc) return;
+  const calc=cur.calc,s=readState(calc);cur.s=s;
+  calc.fields.forEach(f=>{const w=$(`#calc [data-k="${f.k}"]`);if(w) w.hidden=!isVisible(f,s);});
+  const pw=$('#calc [data-presets]');if(pw) pw.hidden=calc.presetWhen?!calc.presetWhen(s):false;
+  cur.err=missing(calc,s);cur.res=null;
+  if(!cur.err){try{cur.res=calc.compute(s);}catch(e){cur.err=e.message||'Terjadi kesalahan.';}}
+  renderResult();
+}
+function syncTarget(){$$('#calc [data-act="target"]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===cur.target)));}
+function snapshot(calc){
+  const o={target:cur.target,f:{},sel:{},text:{},lists:{}};
+  calc.fields.forEach(f=>{
+    if(f.type==='select') o.sel[f.k]=$('#f-'+f.k).value;
+    else if(f.type==='text') o.text[f.k]=$('#f-'+f.k).value;
+    else if(f.type==='list') o.lists[f.k]=$$(`[data-list="${f.k}"] [data-row]`).map(r=>{const c={};f.cols.forEach(cl=>{c[cl.k]={v:r.querySelector(`[data-c="${cl.k}"]`).value,u:+((r.querySelector(`[data-cu="${cl.k}"]`)||{}).value||0)};});return c;});
+    else o.f[f.k]={v:$('#f-'+f.k).value,u:+(($('#u-'+f.k)||{}).value||0)};
+  });
+  return o;
+}
+function applySnap(calc,o){
+  calc.fields.forEach(f=>{
+    if(f.type==='select'){if(o.sel&&o.sel[f.k]!=null)$('#f-'+f.k).value=o.sel[f.k];}
+    else if(f.type==='text'){if(o.text&&o.text[f.k]!=null)$('#f-'+f.k).value=o.text[f.k];}
+    else if(f.type==='list'){if(o.lists&&o.lists[f.k]){$(`[data-list="${f.k}"]`).innerHTML=o.lists[f.k].map((r,i)=>rowHTML(f,i,r)).join('');}}
+    else if(o.f&&o.f[f.k]){$('#f-'+f.k).value=o.f[f.k].v;const u=$('#u-'+f.k);if(u)u.value=o.f[f.k].u;}
+  });
+}
+function applyPreset(calc,p){
+  Object.keys(p.set).forEach(k=>{
+    const f=fld(calc,k),val=p.set[k];if(!f) return;
+    if(f.type==='select'||f.type==='text') $('#f-'+k).value=val;
+    else if(typeof val==='object'){$('#f-'+k).value=val.v;const u=$('#u-'+k);if(u)u.value=val.u;}
+    else $('#f-'+k).value=val;
+  });
+}
+function listHint(k,msg){const el=$(`[data-lh="${k}"]`);if(el)el.textContent=msg||'';}
+function relabel(f){$$(`[data-list="${f.k}"] [data-row]`).forEach((r,i)=>{r.querySelector('.rl').textContent=f.rowLabel(i);});}
+
+/* ----- tampilan: beranda ----- */
+function viewHome(){
+  app.innerHTML=`<header class="hero"><div class="eyebrow">IPA · Kelas 9 SMP/MTs</div><h1 class="title">Kalkulator IPA</h1><p class="lead">${CALCS.length} kalkulator untuk listrik statis, listrik dinamis, kemagnetan, dan pewarisan sifat. Setiap hasil dilengkapi cara pengerjaan: diketahui, ditanya, jawab.</p></header>
+  <div class="searchrow"><input id="q-search" type="search" placeholder="Cari rumus atau topik, mis. Ohm" aria-label="Cari kalkulator" value="${esc(homeQ)}" autocomplete="off"></div>
+  <div class="chips" id="g-chips" role="group" aria-label="Filter topik"></div><div id="list"></div>`;
+  drawChips();drawList();
+}
+function drawChips(){
+  const all=[['all','Semua'],...Object.keys(GROUPS).map(k=>[k,GROUPS[k].n])];
+  $('#g-chips').innerHTML=all.map(([k,n])=>`<button type="button" class="chip" data-act="topic" data-g="${k}" aria-pressed="${homeG===k}">${esc(n)}</button>`).join('');
+}
+function drawList(){
+  const q=homeQ.trim().toLowerCase();let h='',n=0;
+  Object.keys(GROUPS).forEach(g=>{
+    if(homeG!=='all'&&homeG!==g) return;
+    const items=CALCS.filter(c=>c.g===g&&(!q||(c.title+' '+c.formula+' '+c.desc+' '+GROUPS[g].n).toLowerCase().includes(q)));
+    if(!items.length) return;n+=items.length;
+    h+=`<section class="group g-${g}"><div class="group-h"><h2>${esc(GROUPS[g].n)}</h2><span>${items.length} kalkulator</span></div><div class="list">${items.map(c=>`<a class="row g-${c.g}" href="#k-${c.id}"><span class="tile">${esc(c.tile)}</span><span class="t"><span class="name">${esc(c.title)}</span><span class="fm">${esc(c.formula)}</span></span><span class="chev" aria-hidden="true">›</span></a>`).join('')}</div></section>`;
+  });
+  $('#list').innerHTML=h||'<div class="empty">Tidak ada kalkulator yang cocok. Coba kata lain, misalnya “arus” atau “trafo”.</div>';
+}
+
+/* ----- tampilan: kalkulator ----- */
+function viewCalc(id){
+  const calc=CALCS.find(c=>c.id===id);
+  if(!calc){location.hash='#hitung';return;}
+  const G=GROUPS[calc.g];
+  app.innerHTML=`<a class="back" href="#hitung">‹ Semua kalkulator</a>
+  <header class="g-${calc.g}"><div class="eyebrow tg">${esc(G.n)}</div><h1 class="ctitle">${esc(calc.title)}</h1><p class="lead">${esc(calc.desc)}</p>${calc.formula?`<div class="formula">${esc(calc.formula)}</div>`:''}</header>
+  <div id="calc" class="g-${calc.g}">${calc.custom?'<section class="panel" id="cv"></section>':panelHTML(calc)}</div><div id="result" class="g-${calc.g}"></div>`;
+  if(calc.custom){cur={calc:null};convBuild();return;}
+  cur={calc,target:calc.targets?calc.targets[0]:null,s:null,res:null,err:null};
+  if(pendingSnap&&pendingSnap.id===calc.id){applySnap(calc,pendingSnap.snap);if(pendingSnap.snap.target)cur.target=pendingSnap.snap.target;}
+  pendingSnap=null;syncTarget();update();
+}
+
+/* ----- pengubah satuan ----- */
+function convBuild(){
+  const cats=Object.keys(CONV);
+  $('#cv').innerHTML=`<div class="field"><label for="cv-cat">Besaran</label><select id="cv-cat">${cats.map(c=>`<option>${esc(c)}</option>`).join('')}</select></div>
+  <div class="field"><label for="cv-val">Nilai</label><input id="cv-val" type="text" inputmode="text" autocomplete="off" value="250"></div>
+  <div class="two"><div class="field"><label for="cv-from">Dari</label><select id="cv-from"></select></div><button type="button" class="btn" data-act="swap" aria-label="Tukar satuan">⇄</button><div class="field"><label for="cv-to">Ke</label><select id="cv-to"></select></div></div>`;
+  convFill();convUpdate();
+}
+function convFill(){
+  const us=CONV[$('#cv-cat').value],opts=us.map((u,i)=>`<option value="${i}">${esc(u[0])}</option>`).join('');
+  $('#cv-from').innerHTML=opts;$('#cv-to').innerHTML=opts;
+  const b=siIdx(us);$('#cv-to').value=b;$('#cv-from').value=Math.max(0,b-1);
+}
+function convUpdate(){
+  const us=CONV[$('#cv-cat').value],x=parseNum($('#cv-val').value),f=us[+$('#cv-from').value],t=us[+$('#cv-to').value];
+  const box=$('#result');
+  if(!Number.isFinite(x)){box.innerHTML='<div class="lcd err"><div class="cap">Hasil</div><div class="val">— — —</div></div><div class="msg">Isi nilai dengan angka. Gunakan koma untuk desimal, mis. 2,5 atau 2e-6.</div>';return;}
+  const si=x*f[1],out=si/t[1];
+  box.innerHTML=`<div class="lcd" aria-live="polite"><div class="cap">Hasil · ${esc(f[0])} → ${esc(t[0])}</div><div class="val">${esc(fmt(out))}<span class="u"> ${esc(t[0])}</span></div><div class="sub">${esc(fmt(x))} ${esc(f[0])} = ${esc(fmt(out))} ${esc(t[0])}</div></div>
+  <section class="panel"><h3>Semua satuan</h3>${tableHTML(['Satuan','Nilai'],us.map(u=>[u[0],fmt(si/u[1])]),1)}</section>`;
+}
+
+/* ----- tampilan: latihan ----- */
+let P={topic:'all',q:null,counted:false,right:0,total:0,streak:0};
+try{const o=JSON.parse(localStorage.getItem(PKEY)||'null');if(o){P.right=o.right|0;P.total=o.total|0;P.streak=o.streak|0;}}catch(e){}
+function saveP(){try{localStorage.setItem(PKEY,JSON.stringify({right:P.right,total:P.total,streak:P.streak}));}catch(e){}}
+function newQ(){const pool=GEN.filter(g=>P.topic==='all'||g.t===P.topic);const g=pick(pool);P.q=g.f();P.q.t=g.t;P.counted=false;}
+function viewPractice(){
+  if(!P.q) newQ();
+  app.innerHTML=`<header class="hero"><div class="eyebrow">Latihan</div><h1 class="title">Soal acak</h1><p class="lead">Kerjakan di buku, lalu cocokkan jawabanmu. Toleransi pembulatan 1,5%.</p></header>
+  <div class="field"><label for="p-topic">Topik soal</label><select id="p-topic"><option value="all">Semua topik</option>${['statis','dinamis','magnet','gen'].map(k=>`<option value="${k}"${P.topic===k?' selected':''}>${esc(GROUPS[k].n)}</option>`).join('')}</select></div>
+  <div id="p-body"></div>`;
+  drawPractice();
+}
+function drawPractice(){
+  const q=P.q;
+  $('#p-body').innerHTML=`<section class="panel g-${q.t}"><div class="eyebrow tg">${esc(GROUPS[q.t].n)}</div><p class="q">${esc(q.q)}</p>
+  <div class="inp"><input id="p-ans" type="text" inputmode="text" autocomplete="off" placeholder="Jawabanmu" aria-label="Jawaban"><span class="unit-static">${esc(q.unit)}</span></div>
+  <div class="actions"><button type="button" class="btn primary" data-act="p-check">Periksa</button><button type="button" class="btn" data-act="p-show">Lihat pembahasan</button><button type="button" class="btn" data-act="p-new">Soal baru</button></div>
+  <div id="p-fb" role="status"></div></section>
+  <div class="score"><div><b>${P.right}/${P.total}</b><span>Benar</span></div><div><b>${P.streak}</b><span>Beruntun</span></div></div>`;
+}
+function pCount(ok){if(P.counted) return;P.counted=true;P.total++;if(ok){P.right++;P.streak++;}else P.streak=0;saveP();
+  const sc=$$('.score b');if(sc.length===2){sc[0].textContent=P.right+'/'+P.total;sc[1].textContent=P.streak;}}
+function pCheck(){
+  const a=parseNum($('#p-ans').value),fb=$('#p-fb'),q=P.q;
+  if(!Number.isFinite(a)){fb.className='fb bad';fb.textContent='Tulis jawaban berupa angka, mis. 2,5 atau 2e13.';return;}
+  const ok=Math.abs(a-q.ans)<=Math.max(Math.abs(q.ans)*0.015,1e-12);
+  fb.className='fb '+(ok?'ok':'bad');
+  fb.textContent=ok?'Benar! Jawabanmu tepat.':'Belum tepat. Coba hitung lagi, atau lihat pembahasan.';
+  pCount(ok);
+}
+function pShow(){
+  const q=P.q,fb=$('#p-fb');pCount(false);
+  fb.className='fb';
+  fb.innerHTML=`<div class="sx"><h4>Pembahasan</h4>${q.sol.map(x=>`<div class="ln">${esc(x)}</div>`).join('')}</div><div class="ln last" style="margin-top:6px">Jawaban: ${esc(fmt(q.ans))} ${esc(q.unit)}</div>`;
+}
+
+/* ----- tampilan: rumus ----- */
+function viewFormulas(){
+  app.innerHTML=`<header class="hero"><div class="eyebrow">Rumus ringkas</div><h1 class="title">Buku rumus</h1><p class="lead">Semua rumus di kalkulator, lengkap dengan catatan singkat.</p></header>
+  <div class="searchrow"><input id="r-search" type="search" placeholder="Cari rumus, mis. daya" aria-label="Cari rumus" autocomplete="off"></div><div id="r-list"></div>`;
+  drawFormulas();
+}
+function drawFormulas(){
+  const q=(($('#r-search')||{}).value||'').trim().toLowerCase();let h='';
+  FORMULAS.forEach(sec=>{
+    const items=sec.items.filter(i=>!q||(i[0]+' '+i[1]+' '+i[2]).toLowerCase().includes(q));
+    if(!items.length) return;
+    h+=`<section class="group g-${sec.g}"><div class="group-h"><h2>${esc(GROUPS[sec.g].n)}</h2></div><div class="panel" style="margin-top:0">${items.map(i=>`<div class="fi"><div class="nm">${esc(i[0])}</div><div class="fx">${esc(i[1])}</div><div class="nt">${esc(i[2])}</div>${i[3]?`<a href="#k-${i[3]}">Buka kalkulator ›</a>`:''}</div>`).join('')}</div></section>`;
+  });
+  if(!q) h+=`<section class="group"><div class="group-h"><h2>Tetapan penting</h2></div><div class="panel" style="margin-top:0"><dl class="kv">${CONSTS.map(c=>`<div><dt>${esc(c[0])}</dt><dd>${esc(c[1])}</dd></div>`).join('')}</dl></div></section>`;
+  $('#r-list').innerHTML=h||'<div class="empty">Rumus tidak ditemukan. Coba kata kunci lain.</div>';
+}
+
+/* ----- tampilan: riwayat ----- */
+let clearAsk=false;
+function viewHistory(){
+  clearAsk=false;
+  app.innerHTML=`<header class="hero"><div class="eyebrow">Riwayat</div><h1 class="title">Hitungan tersimpan</h1><p class="lead">Disimpan di perangkat ini saja. Ketuk “Buka” untuk memakai angkanya lagi.</p></header><div id="h-body"></div>`;
+  drawHistory();
+}
+function drawHistory(){
+  const a=loadH();
+  if(!a.length){$('#h-body').innerHTML='<div class="empty">Belum ada hitungan tersimpan. Setelah menghitung, ketuk “Simpan ke riwayat”.</div>';return;}
+  const dtf=t=>{try{return new Date(t).toLocaleString('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});}catch(e){return '';}};
+  $('#h-body').innerHTML=`<section class="panel" style="margin-top:14px">${a.map((it,i)=>{const c=CALCS.find(x=>x.id===it.id);return `<div class="hi g-${c?c.g:'alat'}"><div class="t"><div class="name">${esc(c?c.title:it.id)}</div><div class="sm">${esc(it.sum)}</div><div class="dt">${esc(dtf(it.t))}</div></div><button type="button" class="btn small" data-act="h-open" data-i="${i}">Buka</button><button type="button" class="btn small danger" data-act="h-del" data-i="${i}" aria-label="Hapus">Hapus</button></div>`;}).join('')}</section>
+  <div class="actions">${clearAsk?'<button type="button" class="btn danger" data-act="h-clear-yes">Ya, hapus semua</button><button type="button" class="btn" data-act="h-clear-no">Batal</button>':'<button type="button" class="btn" data-act="h-clear">Hapus semua</button>'}</div>`;
+}
+
+/* ----- navigasi ----- */
+function route(){
+  const h=(location.hash||'#hitung').slice(1);
+  let view='hitung',arg=null;
+  if(h.indexOf('k-')===0){view='calc';arg=h.slice(2);}
+  else if(['hitung','latihan','rumus','riwayat'].includes(h)) view=h;
+  $$('nav [data-nav]').forEach(a=>{if(a.dataset.nav===(view==='calc'?'hitung':view))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+  cur=null;
+  if(view==='calc') viewCalc(arg);
+  else if(view==='latihan') viewPractice();
+  else if(view==='rumus') viewFormulas();
+  else if(view==='riwayat') viewHistory();
+  else viewHome();
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+
+/* ----- peristiwa ----- */
+function copyText(text){
+  const fb=$('#fb');
+  const manual=()=>{if(!fb)return;fb.innerHTML='Salin manual dari kotak ini:<textarea readonly rows="6" style="width:100%;margin-top:6px;font:13px var(--f-mono);background:var(--surface-2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:8px"></textarea>';const t=fb.querySelector('textarea');t.value=text;t.focus();t.select();};
+  try{navigator.clipboard.writeText(text).then(()=>{if(fb)fb.textContent='Hasil disalin.';},manual);}catch(e){manual();}
+}
+function handleInput(e){
+  const t=e.target;
+  if(t.id==='q-search'){homeQ=t.value;drawList();return;}
+  if(t.id==='r-search'){drawFormulas();return;}
+  if(t.closest&&t.closest('#cv')){if(t.id==='cv-cat')convFill();convUpdate();return;}
+  if(t.id==='p-topic'){P.topic=t.value;newQ();drawPractice();return;}
+  if(cur&&cur.calc&&t.closest('#calc')) update();
+}
+app.addEventListener('input',handleInput);
+app.addEventListener('change',handleInput);
+app.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='p-ans'){e.preventDefault();pCheck();}});
+app.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]');if(!b) return;
+  const act=b.dataset.act;
+  if(act==='topic'){homeG=b.dataset.g;drawChips();drawList();}
+  else if(act==='target'){cur.target=b.dataset.t;syncTarget();update();}
+  else if(act==='preset'){applyPreset(cur.calc,cur.calc.presets[+b.dataset.i]);update();}
+  else if(act==='unit'){const key=cur.calc.id+':'+cur.s.target;stOut[key]=+b.dataset.i;renderResult();}
+  else if(act==='add'){
+    const f=fld(cur.calc,b.dataset.k),box=$(`[data-list="${f.k}"]`),rows=$$('[data-row]',box);
+    if(rows.length>=f.max){listHint(f.k,`Maksimal ${f.max} baris.`);return;}
+    const last=rows[rows.length-1],row={};
+    if(last)f.cols.forEach(c=>{row[c.k]={v:c.type==='text'?'':last.querySelector(`[data-c="${c.k}"]`).value,u:+((last.querySelector(`[data-cu="${c.k}"]`)||{}).value||0)};});
+    box.insertAdjacentHTML('beforeend',rowHTML(f,rows.length,row));listHint(f.k,'');update();
+  }
+  else if(act==='del'){
+    const f=fld(cur.calc,b.dataset.k),box=$(`[data-list="${f.k}"]`),rows=$$('[data-row]',box);
+    if(rows.length<=f.min){listHint(f.k,`Minimal ${f.min} baris.`);return;}
+    b.closest('[data-row]').remove();relabel(f);listHint(f.k,'');update();
+  }
+  else if(act==='save'){
+    const it={id:cur.calc.id,t:Date.now(),snap:snapshot(cur.calc),sum:summaryText(cur.calc,cur.s,cur.res)};
+    saveH([it,...loadH()].slice(0,40));$('#fb').textContent='Tersimpan di Riwayat.';
+  }
+  else if(act==='copy'){
+    const st=buildSteps(cur.calc,cur.s,cur.res);
+    copyText([cur.calc.title,'','Diketahui:',...st.dk.map(x=>'  '+x),'Ditanya: '+st.dt,'Jawab:',...st.jw.map(x=>'  '+x)].join('\n'));
+  }
+  else if(act==='swap'){const a=$('#cv-from'),c=$('#cv-to'),v=a.value;a.value=c.value;c.value=v;convUpdate();}
+  else if(act==='p-new'){newQ();drawPractice();}
+  else if(act==='p-check') pCheck();
+  else if(act==='p-show') pShow();
+  else if(act==='h-open'){const it=loadH()[+b.dataset.i];if(it){pendingSnap={id:it.id,snap:it.snap};location.hash='#k-'+it.id;}}
+  else if(act==='h-del'){const a=loadH();a.splice(+b.dataset.i,1);saveH(a);drawHistory();}
+  else if(act==='h-clear'){clearAsk=true;drawHistory();}
+  else if(act==='h-clear-no'){clearAsk=false;drawHistory();}
+  else if(act==='h-clear-yes'){saveH([]);clearAsk=false;drawHistory();}
+});
+route();
+</script>
+</body>
+</html>
